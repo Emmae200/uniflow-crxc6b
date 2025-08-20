@@ -17,7 +17,7 @@ const Profile: React.FC = () => {
 
         {/* Header */}
         <div className="profile-header">
-          <button className="back-button" onClick={() => history.push('/dashboard')}>
+          <button className="back-button" onClick={() => history.push('/home')}>
             <img src="/assets/icons/icons2/211686_back_arrow_icon.svg" alt="Back" />
           </button>
           <button className="settings-button">

@@ -1,14 +1,14 @@
 /* Targets Container */
 .targets-container {
   padding: 0;
-  padding-top: 24px;
+  padding-top: 0px;
   font-family: 'Roboto', sans-serif;
 }
 
 .targets-description {
   color: white;
   font-size: 14px;
-  margin: 0 0 24px 0;
+  margin: 0 0 16px 0;
   line-height: 1.4;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
 
 .target-item {
@@ -82,7 +82,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0;
+  padding: 20px 0;
   text-align: center;
 }
 
@@ -137,11 +137,11 @@
 }
 
 /* New Target Button */
-.new-target-button {
-  position: fixed;
-  bottom: 24px;
-  left: 16px;
-  z-index: 10;
+.targets-container .new-target-button {
+  position: fixed !important;
+  bottom: 8px !important;
+  left: 20px !important;
+  z-index: 10 !important;
 }
 
 .add-target-btn {
@@ -188,9 +188,9 @@
     font-size: 14px;
   }
   
-  .new-target-button {
-    bottom: 16px;
-    left: 12px;
+  .targets-container .new-target-button {
+    bottom: 4px !important;
+    left: 16px !important;
   }
   
   .add-target-btn {
@@ -217,9 +217,9 @@
     font-size: 18px;
   }
   
-  .new-target-button {
-    bottom: 32px;
-    left: 24px;
+  .targets-container .new-target-button {
+    bottom: 12px !important;
+    left: 40px !important;
   }
   
   .add-target-btn {

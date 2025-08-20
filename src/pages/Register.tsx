@@ -60,7 +60,7 @@ const Register: React.FC = () => {
       setToastColor('success');
       setShowToast(true);
       setTimeout(() => {
-        history.push('/dashboard');
+        history.push('/home');
       }, 1500);
     } catch (error: any) {
       setToastMessage(error.message || 'Registration failed. Please try again.');

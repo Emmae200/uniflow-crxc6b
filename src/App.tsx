@@ -2,16 +2,20 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { AuthProvider } from './contexts/AuthContext';
-import Home from './pages/Home';
+import Splash from './pages/Splash';
 import Onboarding from './pages/Onboarding';
 import Onboarding2 from './pages/Onboarding2';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
 import Profile from './pages/Profile';
 import AcademicPlans from './pages/AcademicPlans';
 import Plans from './pages/Plans';
+import FinancialPlans from './pages/FinancialPlans';
+import HealthPlans from './pages/HealthPlans';
+import PersonalGrowthPlans from './pages/PersonalGrowthPlans';
+import DailyTodoList from './pages/DailyTodoList';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -54,8 +58,8 @@ const App: React.FC = () => (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/home">
-            <Home />
+          <Route exact path="/splash">
+            <Splash />
           </Route>
           <Route exact path="/onboarding">
             <Onboarding />
@@ -72,8 +76,8 @@ const App: React.FC = () => (
           <Route exact path="/register">
             <Register />
           </Route>
-          <Route exact path="/dashboard">
-            <Dashboard />
+          <Route exact path="/home">
+            <Home />
           </Route>
           <Route exact path="/profile">
             <Profile />
@@ -81,11 +85,23 @@ const App: React.FC = () => (
           <Route exact path="/academic-plans">
             <AcademicPlans />
           </Route>
+          <Route exact path="/financial-plans">
+            <FinancialPlans />
+          </Route>
+          <Route exact path="/health-plans">
+            <HealthPlans />
+          </Route>
+          <Route exact path="/personal-growth-plans">
+            <PersonalGrowthPlans />
+          </Route>
+          <Route exact path="/daily-todo-list">
+            <DailyTodoList />
+          </Route>
           <Route exact path="/plans-page">
             <Plans />
           </Route>
           <Route exact path="/">
-            <Redirect to="/home" />
+            <Redirect to="/splash" />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

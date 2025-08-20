@@ -137,11 +137,11 @@
 }
 
 /* New Task Button */
-.new-task-button {
-  position: fixed;
-  bottom: 24px;
-  left: 16px;
-  z-index: 10;
+.tasks-container .new-task-button {
+  position: fixed !important;
+  bottom: 8px !important;
+  left: 20px !important;
+  z-index: 10 !important;
 }
 
 .add-task-btn {
@@ -188,9 +188,9 @@
     font-size: 14px;
   }
   
-  .new-task-button {
-    bottom: 16px;
-    left: 12px;
+  .tasks-container .new-task-button {
+    bottom: 4px !important;
+    left: 16px !important;
   }
   
   .add-task-btn {
@@ -217,9 +217,9 @@
     font-size: 18px;
   }
   
-  .new-task-button {
-    bottom: 32px;
-    left: 24px;
+  .tasks-container .new-task-button {
+    bottom: 12px !important;
+    left: 40px !important;
   }
   
   .add-task-btn {

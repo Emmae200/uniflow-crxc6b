@@ -75,11 +75,30 @@ const Plans: React.FC = () => {
       focusedElement.blur();
     }
     
-    if (planTitle === 'Academic Plans') {
-      console.log('Navigating to academic plans...');
-      history.push('/academic-plans');
+    switch (planTitle) {
+      case 'Academic Plans':
+        console.log('Navigating to academic plans...');
+        history.push('/academic-plans');
+        break;
+      case 'Financial Plans':
+        console.log('Navigating to financial plans...');
+        history.push('/financial-plans');
+        break;
+      case 'Fitness Plans':
+        console.log('Navigating to health plans...');
+        history.push('/health-plans');
+        break;
+      case 'Personal Growth Plans':
+        console.log('Navigating to personal growth plans...');
+        history.push('/personal-growth-plans');
+        break;
+      case 'Daily To-do list':
+        console.log('Navigating to daily todo list...');
+        history.push('/daily-todo-list');
+        break;
+      default:
+        console.log('Unknown plan:', planTitle);
     }
-    // Add more plan navigation logic here as needed
   };
 
   return (
@@ -158,7 +177,7 @@ const Plans: React.FC = () => {
            if (focusedElement) {
              focusedElement.blur();
            }
-           history.push('/dashboard');
+           history.push('/home');
          }}>
           <div className="nav-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

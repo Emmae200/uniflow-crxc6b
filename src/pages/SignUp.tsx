@@ -21,7 +21,7 @@ const SignUp: React.FC = () => {
       setToastColor('success');
       setShowToast(true);
       setTimeout(() => {
-        history.push('/dashboard');
+        history.push('/home');
       }, 1500);
     } catch (error: any) {
       setToastMessage(error.message || 'Apple sign-in failed. Please try again.');
@@ -41,7 +41,7 @@ const SignUp: React.FC = () => {
       setToastColor('success');
       setShowToast(true);
       setTimeout(() => {
-        history.push('/dashboard');
+        history.push('/home');
       }, 1500);
     } catch (error: any) {
       setToastMessage(error.message || 'Google sign-in failed. Please try again.');

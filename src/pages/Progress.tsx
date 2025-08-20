@@ -13,9 +13,9 @@ const Progress: React.FC = () => {
         <div className="progress-bars">
           {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
             <div key={index} className="progress-day">
-              <div className="progress-bar">
+              <div className="progress-bar weekly-progress-bar">
                 <div 
-                  className="progress-fill" 
+                  className="progress-fill weekly-progress-fill" 
                   style={{ height: `${[70, 70, 70, 60, 70, 70, 70][index]}%` }}
                 ></div>
               </div>

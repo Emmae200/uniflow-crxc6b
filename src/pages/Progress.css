@@ -35,23 +35,24 @@
   flex: 1;
 }
 
-.progress-bar {
-  width: 12px;
-  height: 140px;
-  background: white;
-  border-radius: 6px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+/* Progress Component Specific Styles - DO NOT AFFECT STUDY TRACKER */
+.progress-container .weekly-progress-bar {
+  width: 12px !important;
+  height: 140px !important;
+  background: white !important;
+  border-radius: 6px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
-.progress-fill {
-  width: 100%;
-  background: #90ee90;
-  border-radius: 6px;
-  transition: height 0.3s ease;
-  position: absolute;
-  bottom: 0;
+.progress-container .weekly-progress-fill {
+  width: 100% !important;
+  background: #90ee90 !important;
+  border-radius: 6px !important;
+  transition: height 0.3s ease !important;
+  position: absolute !important;
+  bottom: 0 !important;
 }
 
 .day-label {
@@ -118,9 +119,9 @@
     gap: 8px;
   }
   
-  .progress-bar {
-    width: 10px;
-    height: 100px;
+  .progress-container .weekly-progress-bar {
+    width: 10px !important;
+    height: 100px !important;
   }
   
   .day-label {
@@ -146,9 +147,9 @@
     gap: 16px;
   }
   
-  .progress-bar {
-    width: 14px;
-    height: 160px;
+  .progress-container .weekly-progress-bar {
+    width: 14px !important;
+    height: 160px !important;
   }
   
   .day-label {

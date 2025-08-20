@@ -39,7 +39,7 @@ const Login: React.FC = () => {
       setToastColor('success');
       setShowToast(true);
       setTimeout(() => {
-        history.push('/dashboard');
+        history.push('/home');
       }, 1500);
     } catch (error: any) {
       setToastMessage(error.message || 'Login failed. Please try again.');
