@@ -1,0 +1,64 @@
+/* Splash Screen Container */
+.splash-screen {
+  --background: #447055;
+  background: #447055;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+}
+
+/* Logo Container */
+.logo-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+  font-size: 64px;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  transform: translateY(0);
+}
+
+/* Uni Text */
+.uni {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 100;
+  font-style: italic;
+  color: #d1d1d1;
+  transform: skew(-5deg);
+}
+
+/* Flow Text */
+.flow {
+  font-family: 'Pacifico', cursive, serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #98d8c8;
+  transform: skew(-5deg);
+  margin-left: -2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 375px) {
+  .logo {
+    font-size: 56px;
+  }
+}
+
+@media (min-width: 414px) {
+  .logo {
+    font-size: 64px;
+  }
+}
+

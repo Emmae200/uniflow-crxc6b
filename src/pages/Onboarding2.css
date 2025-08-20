@@ -1,0 +1,319 @@
+/* Onboarding Screen Container */
+.onboarding-screen {
+  --background: #E7E8E3;
+  background: #E7E8E3;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.6s ease-out;
+  z-index: 1;
+  visibility: visible;
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Top Icons */
+.top-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.close-icon {
+  color: #4caf50;
+  font-size: 24px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.close-icon:hover {
+  opacity: 0.8;
+}
+
+.heart-icon {
+  color: #4caf50;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.heart-icon:hover {
+  opacity: 0.8;
+}
+
+/* Image Section */
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 20px 40px;
+  animation: slideUp 0.8s ease-out 0.2s both;
+  position: relative;
+  z-index: 2;
+  visibility: visible;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.circular-image {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 3;
+  visibility: visible;
+}
+
+.onboarding-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  display: block;
+  visibility: visible;
+}
+
+.onboarding-image:hover {
+  transform: scale(1.05);
+}
+
+
+
+/* Content Card */
+.content-card {
+  background: linear-gradient(135deg, #f0f9f0 0%, #e0f2e0 100%);
+  border-radius: 24px 24px 0 0;
+  padding: 30px;
+  border: 2px solid #e0f2e0;
+  margin: 0 auto 40px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  animation: slideUp 0.8s ease-out 0.4s both;
+  position: relative;
+  z-index: 4;
+  visibility: visible;
+}
+
+.card-content {
+  width: 260px;
+  height: 238px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c5f2c;
+  text-align: center;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+}
+
+.card-subtitle {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #5a7a5a;
+  text-align: center;
+  margin: 0 0 24px 0;
+  line-height: 1.4;
+}
+
+/* Pagination Dots */
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #4caf50;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.skip-button {
+  background: none;
+  border: none;
+  color: #4caf50;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.skip-button:hover {
+  opacity: 0.8;
+}
+
+.next-button {
+  background: white;
+  border: none;
+  color: #2c5f2c;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  flex: 1;
+  max-width: 120px;
+}
+
+.next-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.next-button:active {
+  transform: translateY(0);
+}
+
+/* IonPage visibility fix */
+.onboarding-page {
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 375px) {
+  .circular-image {
+    width: 240px;
+    height: 240px;
+  }
+  
+  .card-title {
+    font-size: 20px;
+  }
+  
+  .card-subtitle {
+    font-size: 12px;
+  }
+  
+  .content-card {
+    padding: 20px 16px 24px;
+    width: 85%;
+    margin: 0 auto 60px;
+  }
+  
+  .card-content {
+    width: 220px;
+    height: 200px;
+  }
+  
+  .next-button {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+  
+  .skip-button {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+@media (min-width: 414px) {
+  .circular-image {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .card-title {
+    font-size: 28px;
+  }
+  
+  .content-card {
+    padding: 36px 28px 40px;
+    width: 80%;
+    max-width: 450px;
+    margin: 0 auto 100px;
+  }
+  
+  .card-content {
+    width: 280px;
+    height: 260px;
+  }
+  
+  .next-button {
+    padding: 20px 40px;
+    font-size: 18px;
+  }
+  
+  .skip-button {
+    font-size: 18px;
+    padding: 14px 20px;
+  }
+}

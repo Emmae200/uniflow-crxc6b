@@ -1,0 +1,169 @@
+/* Progress Container */
+.progress-container {
+  padding: 0;
+  padding-top: 24px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.progress-description {
+  color: white;
+  font-size: 14px;
+  margin: 0 0 24px 0;
+  line-height: 1.4;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Weekly Progress */
+.weekly-progress {
+  margin-bottom: 32px;
+}
+
+.progress-bars {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  height: 160px;
+}
+
+.progress-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.progress-bar {
+  width: 12px;
+  height: 140px;
+  background: white;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  width: 100%;
+  background: #90ee90;
+  border-radius: 6px;
+  transition: height 0.3s ease;
+  position: absolute;
+  bottom: 0;
+}
+
+.day-label {
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Productivity Report */
+.productivity-report {
+  background: #447055;
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.report-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.report-week {
+  font-size: 14px;
+  color: #90ee90;
+  margin: 0 0 4px 0;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+
+.report-user {
+  font-size: 14px;
+  color: #90ee90;
+  margin: 0 0 16px 0;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+
+.report-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 0;
+}
+
+.report-quote {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  font-style: italic;
+  color: white;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 375px) {
+  .progress-bars {
+    height: 120px;
+    gap: 8px;
+  }
+  
+  .progress-bar {
+    width: 10px;
+    height: 100px;
+  }
+  
+  .day-label {
+    font-size: 10px;
+  }
+  
+  .productivity-report {
+    padding: 20px;
+  }
+  
+  .report-title {
+    font-size: 18px;
+  }
+  
+  .report-quote {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  .progress-bars {
+    height: 180px;
+    gap: 16px;
+  }
+  
+  .progress-bar {
+    width: 14px;
+    height: 160px;
+  }
+  
+  .day-label {
+    font-size: 12px;
+  }
+  
+  .productivity-report {
+    padding: 32px;
+  }
+  
+  .report-title {
+    font-size: 24px;
+  }
+  
+  .report-quote {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,432 @@
+/* Register Screen Container - Completely Isolated */
+.register-screen {
+  --background: transparent !important;
+  background: #E7E8E3 !important;
+  position: relative !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  display: block !important;
+  flex-direction: unset !important;
+  justify-content: unset !important;
+  align-items: unset !important;
+}
+
+/* Video Container - Div-like Structure */
+.register-background {
+  position: relative !important;
+  width: 100% !important;
+  height: 400px !important;
+  margin: 0 !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+  border-bottom-right-radius: 220px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.register-bg-video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  transform: scale(1.1) !important;
+  filter: blur(1.5px) !important;
+}
+
+/* Reset any inherited flex properties */
+.register-screen {
+  display: block !important;
+}
+
+.register-screen > * {
+  box-sizing: border-box !important;
+}
+
+/* CSS Reset for Register Screen to prevent conflicts */
+.register-screen .ion-content {
+  --background: transparent !important;
+  background: transparent !important;
+  display: block !important;
+  flex-direction: unset !important;
+  justify-content: unset !important;
+  align-items: unset !important;
+}
+
+/* Override any Ionic default styles */
+.register-screen ion-content {
+  --background: transparent !important;
+  background: transparent !important;
+  display: block !important;
+}
+
+/* Prevent flex inheritance from other screens */
+.register-screen,
+.register-screen *,
+.register-screen ion-content,
+.register-screen ion-content * {
+  flex-direction: unset !important;
+  justify-content: unset !important;
+  align-items: unset !important;
+  flex: unset !important;
+}
+
+/* Back Button */
+.register-back-button {
+  position: absolute;
+  top: 60px;
+  left: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.register-back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Register Card */
+.register-card {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  background: linear-gradient(135deg, #f0f9f0 0%, #e0f2e0 100%);
+  border-radius: 24px;
+  padding: 40px 30px;
+  border: 2px solid #e0f2e0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  z-index: 5;
+  animation: registerSlideUp 0.8s ease-out 0.2s both;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+@keyframes registerSlideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 40px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.register-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c5f2c;
+  text-align: center;
+  margin: 0 0 30px 0;
+  line-height: 1.2;
+}
+
+/* Register Form */
+.register-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+/* All fields now span full width by default */
+
+/* Make submit button span full width */
+.register-form .register-submit-button {
+  grid-column: 1 / -1;
+}
+
+.register-input-item {
+  --background: transparent;
+  --border-color: #e0e0e0;
+  --border-radius: 8px;
+  --border-width: 1px;
+  --border-style: solid;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 3px;
+  --padding-bottom: 3px;
+  margin: 0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  height: 32px;
+  min-height: 32px;
+}
+
+.register-input-item:hover {
+  --border-color: #4caf50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.register-input-item.item-has-focus {
+  --border-color: #4caf50;
+  --border-width: 2px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.register-input {
+  --color: #2c5f2c;
+  --placeholder-color: #999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+}
+
+.register-submit-button {
+  --background: #4caf50;
+  --background-hover: #45a049;
+  --background-activated: #45a049;
+  --color: white;
+  --border-radius: 12px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  transition: all 0.2s ease;
+}
+
+.register-submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+}
+
+.register-submit-button:disabled {
+  --background: #ccc;
+  --background-hover: #ccc;
+  --background-activated: #ccc;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Legal Text */
+.register-legal-text {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  z-index: 5;
+  max-width: 300px;
+}
+
+.register-legal-link {
+  background: none;
+  border: none;
+  color: #FF8C00;
+  text-decoration: underline;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.register-legal-link:hover {
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 375px) {
+  /* Video Container */
+  .register-background {
+    height: 280px;
+    border-bottom-right-radius: 150px;
+  }
+  
+  /* Register Card */
+  .register-card {
+    bottom: 15px;
+    padding: 20px 16px;
+    width: 85%;
+    max-width: 320px;
+  }
+  
+  .register-title {
+    font-size: 20px;
+    margin: 0 0 20px 0;
+  }
+  
+  .register-form {
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
+  
+  /* All fields span full width by default */
+  
+  .register-input-item {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --padding-top: 2px;
+    --padding-bottom: 2px;
+    height: 28px;
+    min-height: 28px;
+  }
+  
+  .register-input {
+    font-size: 13px;
+  }
+  
+  .register-submit-button {
+    --padding-top: 14px;
+    --padding-bottom: 14px;
+    font-size: 14px;
+  }
+  
+  /* Legal Text */
+  .register-legal-text {
+    bottom: 20px;
+    font-size: 10px;
+    max-width: 280px;
+  }
+  
+  /* Back Button */
+  .register-back-button {
+    top: 40px;
+    left: 16px;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+
+@media (min-width: 414px) {
+  /* Video Container */
+  .register-background {
+    height: 450px;
+    border-bottom-right-radius: 280px;
+  }
+  
+  /* Register Card */
+  .register-card {
+    bottom: 30px;
+    padding: 36px 28px;
+    max-width: 450px;
+  }
+  
+  .register-title {
+    font-size: 28px;
+    margin: 0 0 24px 0;
+  }
+  
+  .register-form {
+    gap: 14px;
+    grid-template-columns: 1fr;
+  }
+  
+  .register-input-item {
+    --padding-start: 14px;
+    --padding-end: 14px;
+    --padding-top: 4px;
+    --padding-bottom: 4px;
+    height: 36px;
+    min-height: 36px;
+  }
+  
+  .register-input {
+    font-size: 15px;
+  }
+  
+  .register-submit-button {
+    --padding-top: 18px;
+    --padding-bottom: 18px;
+    font-size: 18px;
+  }
+  
+  /* Legal Text */
+  .register-legal-text {
+    bottom: 40px;
+    font-size: 13px;
+    max-width: 350px;
+  }
+  
+  /* Back Button */
+  .register-back-button {
+    top: 60px;
+    left: 28px;
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Video Container */
+  .register-background {
+    height: 500px;
+    border-bottom-right-radius: 320px;
+  }
+  
+  /* Register Card */
+  .register-card {
+    bottom: 30px;
+    padding: 40px 32px;
+    max-width: 500px;
+  }
+  
+  .register-title {
+    font-size: 32px;
+    margin: 0 0 28px 0;
+  }
+  
+  .register-form {
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  
+  .register-input-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+    height: 40px;
+    min-height: 40px;
+  }
+  
+  .register-input {
+    font-size: 17px;
+  }
+  
+  .register-submit-button {
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  /* Legal Text */
+  .register-legal-text {
+    bottom: 50px;
+    font-size: 14px;
+    max-width: 400px;
+  }
+  
+  /* Back Button */
+  .register-back-button {
+    top: 80px;
+    left: 32px;
+    font-size: 20px;
+    padding: 12px 24px;
+  }
+}
