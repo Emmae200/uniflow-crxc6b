@@ -17,6 +17,7 @@ import HealthPlans from './pages/HealthPlans';
 import PersonalGrowthPlans from './pages/PersonalGrowthPlans';
 import DailyTodoList from './pages/DailyTodoList';
 import Courses from './pages/Courses';
+import CustomPlan from './pages/CustomPlan';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -103,6 +104,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/courses">
             <Courses />
+          </Route>
+          <Route exact path="/custom-plan-:planId">
+            <CustomPlan />
           </Route>
           <Route exact path="/">
             <Redirect to="/splash" />

@@ -148,7 +148,7 @@
   --color: rgba(255, 255, 255, 0.7);
   --color-checked: #4A90E2;
   --background: transparent;
-  --background-checked: transparent;
+  --background-checked: rgba(74, 144, 226, 0.1);
   --indicator-color: #4A90E2;
   font-weight: 400;
   font-family: 'Roboto', sans-serif;

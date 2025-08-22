@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { IonButton, IonIcon, IonPage } from '@ionic/react';
-import { search, add } from 'ionicons/icons';
+import { IonButton, IonIcon, IonPage, IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButtons } from '@ionic/react';
+import { search, add, close } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import './Plans.css';
 
 const Plans: React.FC = () => {
   const history = useHistory();
   const [activeFilter, setActiveFilter] = useState('all');
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newPlanName, setNewPlanName] = useState('');
+  const [customPlans, setCustomPlans] = useState<any[]>([]);
   
   console.log('Plans component rendered');
+
+  // Load custom plans from localStorage on component mount
+  useEffect(() => {
+    const savedPlans = localStorage.getItem('customPlans');
+    if (savedPlans) {
+      setCustomPlans(JSON.parse(savedPlans));
+    }
+  }, []);
+
+  // Save custom plans to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('customPlans', JSON.stringify(customPlans));
+  }, [customPlans]);
 
   // Force view update when component mounts
   useEffect(() => {
@@ -24,50 +40,85 @@ const Plans: React.FC = () => {
     console.log('Plans page did enter');
   };
 
-  const plans = [
+  const defaultPlans = [
     {
       id: 1,
       title: 'Daily To-do list',
       icon: '/assets/icons/daily-to-do.png',
       progress: 35,
-      pinned: true
+      pinned: true,
+      type: 'default'
     },
     {
       id: 2,
       title: 'Academic Plans',
       icon: '/assets/icons/academic-plans.png',
       progress: 40,
-      pinned: false
+      pinned: false,
+      type: 'default'
     },
     {
       id: 3,
       title: 'Personal Growth Plans',
       icon: '/assets/icons/personal-growth.png',
       progress: 30,
-      pinned: false
+      pinned: false,
+      type: 'default'
     },
     {
       id: 4,
       title: 'Fitness Plans',
       icon: '/assets/icons/health.png',
       progress: 25,
-      pinned: false
+      pinned: false,
+      type: 'default'
     },
     {
       id: 5,
       title: 'Financial Plans',
       icon: '/assets/icons/finance.png',
       progress: 45,
-      pinned: false
+      pinned: false,
+      type: 'default'
     }
   ];
 
+  // Combine default and custom plans
+  const allPlans = [...defaultPlans, ...customPlans];
+
   const handleFilterChange = (filter: string) => {
     setActiveFilter(filter);
+    if (filter === 'create') {
+      setShowCreateModal(true);
+    }
   };
 
-  const handlePlanClick = (planTitle: string) => {
-    console.log('Plan clicked:', planTitle);
+  const handleCreatePlan = () => {
+    if (newPlanName.trim()) {
+      const planId = Date.now(); // Use timestamp as unique ID
+      const newPlan = {
+        id: planId,
+        title: newPlanName.trim(),
+        icon: '/assets/icons/custom-plan.png', // Default icon for custom plans
+        progress: 0,
+        pinned: false,
+        type: 'custom',
+        route: `/custom-plan-${planId}`
+      };
+      
+      setCustomPlans([...customPlans, newPlan]);
+      setNewPlanName('');
+      setShowCreateModal(false);
+      setActiveFilter('all');
+    }
+  };
+
+  const handleDeletePlan = (planId: number) => {
+    setCustomPlans(customPlans.filter(plan => plan.id !== planId));
+  };
+
+  const handlePlanClick = (plan: any) => {
+    console.log('Plan clicked:', plan.title);
     
     // Remove focus from any focused element before navigation
     const focusedElement = document.activeElement as HTMLElement;
@@ -75,7 +126,13 @@ const Plans: React.FC = () => {
       focusedElement.blur();
     }
     
-    switch (planTitle) {
+    if (plan.type === 'custom') {
+      // Navigate to custom plan page
+      history.push(plan.route);
+      return;
+    }
+    
+    switch (plan.title) {
       case 'Academic Plans':
         console.log('Navigating to academic plans...');
         history.push('/academic-plans');
@@ -97,7 +154,7 @@ const Plans: React.FC = () => {
         history.push('/daily-todo-list');
         break;
       default:
-        console.log('Unknown plan:', planTitle);
+        console.log('Unknown plan:', plan.title);
     }
   };
 
@@ -143,8 +200,8 @@ const Plans: React.FC = () => {
       {/* Plans List */}
       <div className="plans-container">
         <div className="plans-list">
-                     {plans.map((plan) => (
-             <div key={plan.id} className="plan-card" onClick={() => handlePlanClick(plan.title)}>
+          {allPlans.map((plan) => (
+            <div key={plan.id} className="plan-card" onClick={() => handlePlanClick(plan)}>
               <div className="plan-icon">
                 <img src={plan.icon} alt={plan.title} />
               </div>
@@ -164,10 +221,55 @@ const Plans: React.FC = () => {
                   <img src="/assets/icons/pin-3d.png" alt="Pin" width="16" height="16" />
                 </div>
               )}
+              {plan.type === 'custom' && (
+                <div 
+                  className="delete-plan-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeletePlan(plan.id);
+                  }}
+                >
+                  ×
+                </div>
+              )}
             </div>
           ))}
         </div>
       </div>
+
+      {/* Create Plan Modal */}
+      <IonModal isOpen={showCreateModal} onDidDismiss={() => setShowCreateModal(false)}>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Create New Plan</IonTitle>
+            <IonButtons slot="end">
+              <IonButton onClick={() => setShowCreateModal(false)}>
+                <IonIcon icon={close} />
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding">
+          <IonItem>
+            <IonLabel position="stacked">Plan Name</IonLabel>
+            <IonInput
+              value={newPlanName}
+              onIonChange={(e) => setNewPlanName(e.detail.value || '')}
+              placeholder="Enter plan name..."
+              clearInput={true}
+            />
+          </IonItem>
+          <div style={{ marginTop: '20px' }}>
+            <IonButton 
+              expand="block" 
+              onClick={handleCreatePlan}
+              disabled={!newPlanName.trim()}
+            >
+              Create Plan
+            </IonButton>
+          </div>
+        </IonContent>
+      </IonModal>
 
              {/* Bottom Navigation */}
        <div className="bottom-nav">
