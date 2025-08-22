@@ -106,6 +106,7 @@ const Plans: React.FC = () => {
         route: `/custom-plan-${planId}`
       };
       
+      console.log('Creating new plan:', newPlan);
       setCustomPlans([...customPlans, newPlan]);
       setNewPlanName('');
       setShowCreateModal(false);
@@ -128,6 +129,7 @@ const Plans: React.FC = () => {
     
     if (plan.type === 'custom') {
       // Navigate to custom plan page
+      console.log('Navigating to custom plan:', plan.route);
       history.push(plan.route);
       return;
     }

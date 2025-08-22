@@ -30,6 +30,7 @@
   padding: 16px;
   padding-top: 20px; /* Reduced since we now have status bar spacer */
   position: relative;
+  background: #447055;
   animation: slideInDown 0.8s ease-out 0.2s both;
 }
 
@@ -148,7 +149,7 @@
   --color: rgba(255, 255, 255, 0.7);
   --color-checked: #4A90E2;
   --background: transparent;
-  --background-checked: rgba(74, 144, 226, 0.1);
+  --background-checked: rgba(74, 144, 226, 0.05);
   --indicator-color: #4A90E2;
   font-weight: 400;
   font-family: 'Roboto', sans-serif;

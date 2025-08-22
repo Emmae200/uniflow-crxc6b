@@ -14,10 +14,13 @@ const CustomPlan: React.FC = () => {
 
   useEffect(() => {
     // Load plan details from localStorage
+    console.log('CustomPlan: Loading plan with ID:', planId);
     const savedPlans = localStorage.getItem('customPlans');
     if (savedPlans) {
       const plans = JSON.parse(savedPlans);
+      console.log('CustomPlan: All saved plans:', plans);
       const plan = plans.find((p: any) => p.id.toString() === planId);
+      console.log('CustomPlan: Found plan:', plan);
       if (plan) {
         setPlanTitle(plan.title);
       }
