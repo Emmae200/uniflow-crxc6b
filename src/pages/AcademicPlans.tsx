@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonSegment, IonSegmentButton, IonLabel, IonButton } from '@ionic/react';
+import { IonPage, IonContent, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import Targets from './Targets';
 import Tasks from './Tasks';
@@ -15,10 +15,9 @@ const AcademicPlans: React.FC = () => {
   };
 
   const handleBackClick = () => {
-    // Remove focus from the button before navigation
-    const backButton = document.querySelector('.back-button') as HTMLElement;
-    if (backButton) {
-      backButton.blur();
+    const focusedElement = document.activeElement as HTMLElement;
+    if (focusedElement) {
+      focusedElement.blur();
     }
     history.push('/plans-page');
   };
@@ -26,50 +25,61 @@ const AcademicPlans: React.FC = () => {
   const renderContent = () => {
     switch (selectedTab) {
       case 'targets':
-        return <Targets />;
+        return <div className="targets-container"><Targets /></div>;
       case 'tasks':
-        return <Tasks />;
+        return <div className="tasks-container"><Tasks /></div>;
       case 'progress':
-        return <Progress />;
+        return <div className="progress-container"><Progress /></div>;
       default:
-        return <Targets />;
+        return <div className="targets-container"><Targets /></div>;
     }
   };
 
   return (
-    <IonPage className="academic-plans-page">
-      <IonHeader className="academic-plans-header">
-        <div className="header-content">
-          <IonButton fill="clear" className="back-button" onClick={handleBackClick}>
-            ←
-          </IonButton>
-          <h1 className="academic-plans-title">Academic Plans</h1>
-        </div>
-      </IonHeader>
+    <IonPage>
+      <IonContent>
+        <div className="academic-plans-screen">
+          {/* Status Bar Spacer */}
+          <div className="status-bar-spacer"></div>
+          
+          {/* Header */}
+          <div className="header-content">
+            <button className="back-button" onClick={handleBackClick}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+              </svg>
+            </button>
+            <h1 className="page-title">Academic Plans</h1>
+          </div>
 
-      <IonContent className="academic-plans-content">
-        <div className="plan-mini-banner">
-          <img src="/assets/icons/plans_minibg.jpeg" alt="Academic Plans Background" className="plan-mini-bg" />
-        </div>
+          {/* Plan Mini Banner */}
+          <div className="plan-mini-banner">
+            <img src="/assets/icons/plans_minibg.jpeg" alt="Academic Plans" className="plan-mini-bg" />
+          </div>
 
-        <IonSegment 
-          value={selectedTab} 
-          onIonChange={handleSegmentChange}
-          className="academic-segment"
-        >
-          <IonSegmentButton value="targets" className="segment-button">
-            <IonLabel>Targets</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="tasks" className="segment-button">
-            <IonLabel>Tasks</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="progress" className="segment-button">
-            <IonLabel>Progress</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
+          {/* Segment Control */}
+          <div className="segment-container">
+            <IonSegment 
+              value={selectedTab} 
+              onIonChange={handleSegmentChange}
+              className="academic-segment"
+            >
+              <IonSegmentButton value="targets">
+                <IonLabel>Targets</IonLabel>
+              </IonSegmentButton>
+              <IonSegmentButton value="tasks">
+                <IonLabel>Tasks</IonLabel>
+              </IonSegmentButton>
+              <IonSegmentButton value="progress">
+                <IonLabel>Progress</IonLabel>
+              </IonSegmentButton>
+            </IonSegment>
+          </div>
 
-        <div className="content-container">
-          {renderContent()}
+          {/* Content */}
+          <div className={`academic-plans-content ${selectedTab}-active`}>
+            {renderContent()}
+          </div>
         </div>
       </IonContent>
     </IonPage>

@@ -203,6 +203,26 @@ const Home: React.FC = () => {
     history.push('/plans-page');
   };
 
+  const handleCoursesClick = () => {
+    console.log('Navigating to courses...');
+    console.log('Current location:', window.location.pathname);
+    
+    // Remove focus from any focused element before navigation
+    const focusedElement = document.activeElement as HTMLElement;
+    if (focusedElement) {
+      focusedElement.blur();
+    }
+    
+    // Try React Router first, then fallback to window.location
+    try {
+      history.push('/courses');
+      console.log('React Router navigation attempted');
+    } catch (error) {
+      console.error('React Router failed, using window.location:', error);
+      window.location.href = '/courses';
+    }
+  };
+
   const handleLogout = () => {
     logout();
     history.push('/signup');
@@ -407,7 +427,7 @@ const Home: React.FC = () => {
           <div className="nav-item central">
             <div className="nav-icon">🌿</div>
           </div>
-          <div className="nav-item">
+          <div className="nav-item" onClick={handleCoursesClick}>
             <div className="nav-icon">📚</div>
             <span>Courses</span>
           </div>

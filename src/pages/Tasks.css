@@ -33,6 +33,19 @@
   width: 320px;
   max-height: 60px;
   margin: 0 auto;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.task-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 .task-checkbox {
@@ -57,8 +70,7 @@
   border-color: #32cd32;
 }
 
-.task-checkbox.checked::after {
-  content: '✓';
+.task-checkbox.checked .check-icon {
   position: absolute;
   top: 50%;
   left: 50%;

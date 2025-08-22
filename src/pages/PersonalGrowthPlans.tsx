@@ -26,6 +26,9 @@ const PersonalGrowthPlans: React.FC = () => {
     <IonPage>
       <IonContent>
         <div className="personal-growth-plans-screen">
+          {/* Status Bar Spacer */}
+          <div className="status-bar-spacer"></div>
+          
           {/* Header */}
           <div className="header-content">
             <button className="back-button" onClick={handleBackClick}>

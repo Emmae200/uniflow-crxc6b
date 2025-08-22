@@ -26,6 +26,9 @@ const DailyTodoList: React.FC = () => {
     <IonPage>
       <IonContent>
         <div className="daily-todo-list-screen">
+          {/* Status Bar Spacer */}
+          <div className="status-bar-spacer"></div>
+          
           {/* Header */}
           <div className="header-content">
             <button className="back-button" onClick={handleBackClick}>

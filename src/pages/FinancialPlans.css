@@ -1,10 +1,15 @@
 /* Financial Plans Screen */
 .financial-plans-screen {
   background: #447055;
-  min-height: 100vh;
   font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  padding-top: 60px;
+  min-height: 100vh;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Status Bar Spacer */
+.status-bar-spacer {
+  height: 60px; /* Space for device status bar */
+  width: 100%;
 }
 
 /* Header Content */
@@ -12,10 +17,9 @@
   display: flex;
   align-items: center;
   padding: 16px;
-  padding-top: 0px; /* Removed all top padding to shift content up to maximum */
+  padding-top: 20px; /* Reduced since we now have status bar spacer */
   position: relative;
   animation: slideInDown 0.8s ease-out 0.2s both;
-  margin-bottom: 8px;
 }
 
 .back-button {
@@ -26,7 +30,13 @@
   position: absolute;
   left: 16px;
   z-index: 10;
-  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
 }
 
 .back-button:hover {
@@ -50,61 +60,57 @@
 
 /* Plan Mini Banner */
 .plan-mini-banner {
-  margin: 20px 20px 0 20px;
   border-radius: 16px;
+  margin: 0 16px 20px 16px;
+  position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  height: 120px;
+  animation: fadeInScale 0.6s ease-out 0.4s both;
 }
 
 .plan-mini-bg {
   width: 100%;
-  height: 120px;
+  height: 100%;
   object-fit: cover;
-  display: block;
+  border-radius: 16px;
 }
 
 /* Segment Container */
 .segment-container {
-  margin: 20px 20px 0 20px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 4px;
+  padding: 0 16px;
+  margin-bottom: 20px;
 }
 
+/* Segment Control */
 .financial-segment {
+  background: transparent;
+  border-radius: 12px;
   --background: transparent;
-  --background-checked: #ED3F1C;
-  --color: rgba(255, 255, 255, 0.7);
-  --color-checked: white;
-  --indicator-color: transparent;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 4px;
+  animation: slideInUp 0.6s ease-out 0.6s both;
 }
 
 .financial-segment ion-segment-button {
-  --background: transparent;
-  --background-checked: #ED3F1C;
   --color: rgba(255, 255, 255, 0.7);
-  --color-checked: white;
-  --indicator-color: transparent;
-  font-weight: 500;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  --color-checked: #4A90E2;
+  --background: transparent;
+  --background-checked: transparent;
+  --indicator-color: #4A90E2;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 0;
+  text-transform: uppercase;
 }
 
-.financial-segment ion-segment-button:hover {
-  --background: rgba(255, 255, 255, 0.1);
-}
-
-/* Financial Plans Content */
+/* Content */
 .financial-plans-content {
-  --background: #447055;
-  background: #447055;
   padding: 0 16px;
-  padding-top: 0px; /* Removed top padding to shift content up even more */
-  padding-bottom: 0px; /* Removed bottom padding to allow buttons at exact bottom */
+  padding-bottom: 100px;
 }
 
-/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -119,7 +125,7 @@
 @keyframes slideInDown {
   from {
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
@@ -127,24 +133,26 @@
   }
 }
 
-.financial-plans-screen {
-  animation: fadeInUp 0.6s ease-out;
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-.header-content {
-  animation: slideInDown 0.8s ease-out 0.2s both;
-}
-
-.plan-mini-banner {
-  animation: fadeInUp 0.6s ease-out 0.4s both;
-}
-
-.segment-container {
-  animation: fadeInUp 0.6s ease-out 0.6s both;
-}
-
-.financial-plans-content {
-  animation: fadeInUp 0.6s ease-out 0.8s both;
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Add Button Positioning for Financial Plans */
@@ -158,12 +166,12 @@
 
 /* Responsive Design */
 @media (max-width: 375px) {
-  .financial-plans-screen {
-    padding-top: 50px;
+  .status-bar-spacer {
+    height: 50px; /* Smaller space for mobile */
   }
   
   .header-content {
-    padding: 16px;
+    padding-top: 16px; /* Reduced since we have status bar spacer */
   }
   
   .page-title {
@@ -171,15 +179,18 @@
   }
   
   .plan-mini-banner {
-    margin: 16px 16px 0 16px;
+    height: 100px;
+    margin: 0 12px 16px 12px;
   }
   
   .segment-container {
-    margin: 16px 16px 0 16px;
+    padding: 0 12px;
+    margin-bottom: 16px;
   }
   
   .financial-plans-content {
-    padding: 0 16px;
+    padding: 0 12px;
+    padding-bottom: 80px;
   }
   
   .financial-plans-content .new-target-button,
@@ -190,12 +201,12 @@
 }
 
 @media (min-width: 768px) {
-  .financial-plans-screen {
-    padding-top: 80px;
+  .status-bar-spacer {
+    height: 80px; /* Larger space for desktop */
   }
   
   .header-content {
-    padding: 24px 40px 0 40px;
+    padding-top: 24px; /* Reduced since we have status bar spacer */
   }
   
   .page-title {
@@ -203,15 +214,18 @@
   }
   
   .plan-mini-banner {
-    margin: 24px 40px 0 40px;
+    height: 140px;
+    margin: 0 20px 24px 20px;
   }
   
   .segment-container {
-    margin: 24px 40px 0 40px;
+    padding: 0 20px;
+    margin-bottom: 24px;
   }
   
   .financial-plans-content {
-    padding: 0 40px;
+    padding: 0 20px;
+    padding-bottom: 120px;
   }
   
   .financial-plans-content .new-target-button,

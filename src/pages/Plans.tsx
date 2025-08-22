@@ -202,7 +202,25 @@ const Plans: React.FC = () => {
             </svg>
           </div>
         </div>
-        <div className="nav-item">
+        <div className="nav-item" onClick={() => {
+          console.log('Plans: Navigating to courses...');
+          console.log('Current location:', window.location.pathname);
+          
+          // Remove focus from any focused element before navigation
+          const focusedElement = document.activeElement as HTMLElement;
+          if (focusedElement) {
+            focusedElement.blur();
+          }
+          
+          // Try React Router first, then fallback to window.location
+          try {
+            history.push('/courses');
+            console.log('Plans: React Router navigation attempted');
+          } catch (error) {
+            console.error('Plans: React Router failed, using window.location:', error);
+            window.location.href = '/courses';
+          }
+        }}>
           <div className="nav-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z"/>
