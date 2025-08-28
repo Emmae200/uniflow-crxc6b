@@ -1,2 +1,0 @@
-[33mcf4a3d4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Fix Academic Plans spacing and button positioning - Updated AcademicPlans.css and Targets.css to fix spacing constraints - Positioned New Target/Task buttons in bottom left corner - Reduced excessive padding and margins for compact layout - Fixed header, banner, and segment control spacing - Applied consistent styling across all plan pages
-[33m3a6acaa[m Initial commit: UniFlow - Academic Planning App with Authentication and Plans Management
