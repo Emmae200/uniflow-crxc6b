@@ -6,6 +6,7 @@ import { asyncHandler, ValidationError, AuthenticationError } from '../utils/err
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID || ''
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || ''
 const REDIRECT_URI = 'http://localhost:3000/auth/google/callback'
+const FRONTEND_URL = 'http://localhost:5173'
 
 const oauth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -65,5 +66,9 @@ export const handleGoogleCallback = asyncHandler(async (c: any) => {
   const { token, refreshToken } = signTokens(user._id.toString())
   console.log('[Controller] JWTs generated for:', user.email)
 
-  return c.json({ token, refreshToken, user })
+  // Redirect to frontend with tokens as URL parameters
+  const redirectUrl = `${FRONTEND_URL}/dashboard?token=${encodeURIComponent(token)}&refreshToken=${encodeURIComponent(refreshToken)}&user=${encodeURIComponent(JSON.stringify(user))}`
+  
+  console.log('[Controller] Redirecting to frontend:', redirectUrl)
+  return c.redirect(redirectUrl)
 })

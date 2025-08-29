@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
 import { serve } from '@hono/node-server'
 import { connectDB } from './config/db'
 import authRoutes from './routes/auth'
@@ -12,6 +13,14 @@ import { handleError } from './utils/errorHandler'
 
 // Create app once
 const app = new Hono()
+
+// Enable CORS for all routes
+app.use('*', cors({
+  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:8080'],
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}))
 
 // API docs
 app.get('/docs', apiReference({
@@ -77,8 +86,6 @@ app.get('/test-db', async (c) => {
     }, 500)
   }
 })
-
-
 
 // Start server after DB connects
 connectDB().then(() => {
