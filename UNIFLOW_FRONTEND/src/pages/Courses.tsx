@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonButton, IonIcon } from '@ionic/react';
 import { search, add } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 import './Courses.css';
 
 interface Course {
@@ -135,21 +136,22 @@ const Courses: React.FC = () => {
     <IonPage>
       <IonContent>
         <div className="courses-screen">
-          {/* Status Bar Spacer */}
-          <div className="status-bar-spacer"></div>
-          
-          {/* Header */}
-          <div className="header-content">
-            <h1 className="page-title">Courses</h1>
-            <div className="header-actions">
-              <IonButton fill="clear" className="search-btn" onClick={handleSearch}>
-                <IonIcon icon={search} />
-              </IonButton>
-              <IonButton fill="clear" className="add-course-btn" onClick={handleAddCourse}>
-                <IonIcon icon={add} />
-              </IonButton>
-            </div>
-          </div>
+          <PageHeader
+            title="Courses"
+            backgroundColor="#E7E8E3"
+            textColor="#447055"
+            showBackButton={false}
+            rightContent={
+              <div className="header-actions">
+                <IonButton fill="clear" className="search-btn" onClick={handleSearch}>
+                  <IonIcon icon={search} />
+                </IonButton>
+                <IonButton fill="clear" className="add-course-btn" onClick={handleAddCourse}>
+                  <IonIcon icon={add} />
+                </IonButton>
+              </div>
+            }
+          />
 
                      {/* Course Cards */}
            <div className="courses-container">

@@ -10,6 +10,17 @@ export default defineConfig({
     react(),
     legacy()
   ],
+  server: {
+    port: 5173,
+    host: true,
+    historyApiFallback: true,
+    open: true
+  },
+  preview: {
+    port: 5173,
+    host: true,
+    historyApiFallback: true
+  },
   test: {
     globals: true,
     environment: 'jsdom',

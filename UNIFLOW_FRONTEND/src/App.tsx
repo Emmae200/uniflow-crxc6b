@@ -2,6 +2,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { AuthProvider } from './contexts/AuthContext';
+import ErrorBoundary from './components/ErrorBoundary';
 import Splash from './pages/Splash';
 import Onboarding from './pages/Onboarding';
 import Onboarding2 from './pages/Onboarding2';
@@ -58,71 +59,78 @@ import './theme/transitions.css';
 setupIonicReact();
 
 const App: React.FC = () => (
-  <AuthProvider>
-    <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <Route exact path="/splash">
-            <Splash />
-          </Route>
-          <Route exact path="/onboarding">
-            <Onboarding />
-          </Route>
-          <Route exact path="/onboarding2">
-            <Onboarding2 />
-          </Route>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/register">
-            <Register />
-          </Route>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
-          <Route exact path="/academic-plans">
-            <AcademicPlans />
-          </Route>
-          <Route exact path="/financial-plans">
-            <FinancialPlans />
-          </Route>
-          <Route exact path="/health-plans">
-            <HealthPlans />
-          </Route>
-          <Route exact path="/personal-growth-plans">
-            <PersonalGrowthPlans />
-          </Route>
-          <Route exact path="/daily-todo-list">
-            <DailyTodoList />
-          </Route>
-          <Route exact path="/plans-page">
-            <Plans />
-          </Route>
-          <Route exact path="/courses">
-            <Courses />
-          </Route>
-          <Route exact path="/custom-plan-:planId">
-            <CustomPlan />
-          </Route>
-          <Route exact path="/weekly-schedule">
-            <WeeklySchedule />
-          </Route>
-          <Route exact path="/todo-list">
-            <TodoList />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/splash" />
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
-  </AuthProvider>
+  <ErrorBoundary>
+    <AuthProvider>
+      <IonApp>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            {/* Public Routes */}
+            <Route exact path="/splash">
+              <Splash />
+            </Route>
+            <Route exact path="/onboarding">
+              <Onboarding />
+            </Route>
+            <Route exact path="/onboarding2">
+              <Onboarding2 />
+            </Route>
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
+            
+            {/* Protected Routes - These should be wrapped with ProtectedRoute in production */}
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/profile">
+              <Profile />
+            </Route>
+            <Route exact path="/academic-plans">
+              <AcademicPlans />
+            </Route>
+            <Route exact path="/financial-plans">
+              <FinancialPlans />
+            </Route>
+            <Route exact path="/health-plans">
+              <HealthPlans />
+            </Route>
+            <Route exact path="/personal-growth-plans">
+              <PersonalGrowthPlans />
+            </Route>
+            <Route exact path="/daily-todo-list">
+              <DailyTodoList />
+            </Route>
+            <Route exact path="/plans-page">
+              <Plans />
+            </Route>
+            <Route exact path="/courses">
+              <Courses />
+            </Route>
+            <Route exact path="/custom-plan-:planId">
+              <CustomPlan />
+            </Route>
+            <Route exact path="/weekly-schedule">
+              <WeeklySchedule />
+            </Route>
+            <Route exact path="/todo-list">
+              <TodoList />
+            </Route>
+            
+            {/* Default redirect */}
+            <Route exact path="/">
+              <Redirect to="/splash" />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonApp>
+    </AuthProvider>
+  </ErrorBoundary>
 );
 
 export default App;

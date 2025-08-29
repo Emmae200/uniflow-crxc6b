@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { IonButton, IonIcon, IonPage, IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButtons } from '@ionic/react';
-import { search, add, close } from 'ionicons/icons';
+import React, { useState, useEffect, useRef } from 'react';
+import { IonIcon, IonPage, IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButtons, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonBackButton } from '@ionic/react';
+import { search, add, close, trash } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import './Plans.css';
 
 const Plans: React.FC = () => {
   const history = useHistory();
   const [activeFilter, setActiveFilter] = useState('all');
+  const [customPlans, setCustomPlans] = useState<any[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newPlanName, setNewPlanName] = useState('');
-  const [customPlans, setCustomPlans] = useState<any[]>([]);
+  const [showCustomPlanModal, setShowCustomPlanModal] = useState(false);
+  const [selectedCustomPlan, setSelectedCustomPlan] = useState<any>(null);
+  const [showDeleteOption, setShowDeleteOption] = useState<number | null>(null);
+  const longPressTimerRef = useRef<NodeJS.Timeout | null>(null);
   
   console.log('Plans component rendered');
 
@@ -89,21 +93,25 @@ const Plans: React.FC = () => {
   const handleFilterChange = (filter: string) => {
     setActiveFilter(filter);
     if (filter === 'create') {
+      console.log('Opening create modal');
       setShowCreateModal(true);
     }
   };
 
   const handleCreatePlan = () => {
+    console.log('handleCreatePlan called, newPlanName:', newPlanName);
     if (newPlanName.trim()) {
-      const planId = Date.now(); // Use timestamp as unique ID
+      const planId = Date.now();
       const newPlan = {
         id: planId,
         title: newPlanName.trim(),
-        icon: '/assets/icons/custom-plan.png', // Default icon for custom plans
+        icon: '/assets/icons/custom-plan.png',
         progress: 0,
         pinned: false,
         type: 'custom',
-        route: `/custom-plan-${planId}`
+        route: `/custom-plan-${planId}`,
+        createdAt: new Date().toISOString(),
+        description: `Custom plan created on ${new Date().toLocaleDateString()}`
       };
       
       console.log('Creating new plan:', newPlan);
@@ -111,11 +119,41 @@ const Plans: React.FC = () => {
       setNewPlanName('');
       setShowCreateModal(false);
       setActiveFilter('all');
+      console.log('Plan created successfully!');
+    } else {
+      console.log('Plan name is empty or only whitespace');
     }
   };
 
+  const handleCancelCreate = () => {
+    setNewPlanName('');
+    setShowCreateModal(false);
+    setActiveFilter('all');
+  };
+
+
+
   const handleDeletePlan = (planId: number) => {
     setCustomPlans(customPlans.filter(plan => plan.id !== planId));
+    setShowDeleteOption(null);
+  };
+
+  const handleLongPress = (planId: number) => {
+    longPressTimerRef.current = setTimeout(() => {
+      setShowDeleteOption(planId);
+    }, 1000);
+  };
+
+  const handleTouchEnd = () => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
+    }
+  };
+
+  const handleCustomPlanClick = (plan: any) => {
+    setSelectedCustomPlan(plan);
+    setShowCustomPlanModal(true);
   };
 
   const handlePlanClick = (plan: any) => {
@@ -128,9 +166,8 @@ const Plans: React.FC = () => {
     }
     
     if (plan.type === 'custom') {
-      // Navigate to custom plan page
-      console.log('Navigating to custom plan:', plan.route);
-      history.push(plan.route);
+      // Show custom plan modal instead of navigating
+      handleCustomPlanClick(plan);
       return;
     }
     
@@ -202,78 +239,182 @@ const Plans: React.FC = () => {
       {/* Plans List */}
       <div className="plans-container">
         <div className="plans-list">
-          {allPlans.map((plan) => (
-            <div key={plan.id} className="plan-card" onClick={() => handlePlanClick(plan)}>
-              <div className="plan-icon">
-                <img src={plan.icon} alt={plan.title} />
-              </div>
-              <div className="plan-content">
-                <h3 className="plan-title">{plan.title}</h3>
-                <div className="plan-progress">
-                  <div className="progress-bar">
-                    <div 
-                      className="progress-fill" 
-                      style={{ width: `${plan.progress}%` }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-              {plan.pinned && (
-                <div className="pin-icon">
-                  <img src="/assets/icons/pin-3d.png" alt="Pin" width="16" height="16" />
-                </div>
-              )}
-              {plan.type === 'custom' && (
-                <div 
-                  className="delete-plan-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeletePlan(plan.id);
-                  }}
-                >
-                  ×
-                </div>
-              )}
-            </div>
-          ))}
+                     {allPlans.map((plan) => (
+             <div 
+               key={plan.id} 
+               className="plan-card" 
+               onClick={() => handlePlanClick(plan)}
+               onTouchStart={() => plan.type === 'custom' && handleLongPress(plan.id)}
+               onTouchEnd={handleTouchEnd}
+               onMouseDown={() => plan.type === 'custom' && handleLongPress(plan.id)}
+               onMouseUp={handleTouchEnd}
+               onMouseLeave={handleTouchEnd}
+             >
+               <div className="plan-icon">
+                 <img src={plan.icon} alt={plan.title} />
+               </div>
+               <div className="plan-content">
+                 <h3 className="plan-title">{plan.title}</h3>
+                 <div className="plan-progress">
+                   <div className="progress-bar">
+                     <div 
+                       className="progress-fill" 
+                       style={{ width: `${plan.progress}%` }}
+                     ></div>
+                   </div>
+                 </div>
+               </div>
+               {plan.pinned && (
+                 <div className="pin-icon">
+                   <img src="/assets/icons/pin-3d.png" alt="Pin" width="16" height="16" />
+                 </div>
+               )}
+               {showDeleteOption === plan.id && plan.type === 'custom' && (
+                 <div className="delete-option">
+                   <button 
+                     className="delete-btn"
+                     onClick={(e) => {
+                       e.stopPropagation();
+                       handleDeletePlan(plan.id);
+                     }}
+                   >
+                     <IonIcon icon={trash} />
+                     Delete
+                   </button>
+                 </div>
+               )}
+             </div>
+           ))}
         </div>
-      </div>
+             </div>
 
-      {/* Create Plan Modal */}
-      <IonModal isOpen={showCreateModal} onDidDismiss={() => setShowCreateModal(false)}>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Create New Plan</IonTitle>
-            <IonButtons slot="end">
-              <IonButton onClick={() => setShowCreateModal(false)}>
-                <IonIcon icon={close} />
-              </IonButton>
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent className="ion-padding">
-          <IonItem>
-            <IonLabel position="stacked">Plan Name</IonLabel>
-            <IonInput
-              value={newPlanName}
-              onIonChange={(e) => setNewPlanName(e.detail.value || '')}
-              placeholder="Enter plan name..."
-              clearInput={true}
-            />
-          </IonItem>
-          <div style={{ marginTop: '20px' }}>
-            <IonButton 
-              expand="block" 
-              onClick={handleCreatePlan}
-              disabled={!newPlanName.trim()}
-            >
-              Create Plan
-            </IonButton>
-          </div>
-        </IonContent>
-      </IonModal>
+       {/* Create Plan Modal */}
+       <IonModal isOpen={showCreateModal} onDidDismiss={handleCancelCreate} className="modern-modal">
+         <div className="modern-modal-content">
+           <div className="modal-header">
+             <div className="modal-icon">
+               <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                 <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+               </svg>
+             </div>
+             <h2>Create New Plan</h2>
+             <p>Start building your personalized plan</p>
+             <button className="close-btn" onClick={handleCancelCreate}>
+               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                 <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+               </svg>
+             </button>
+           </div>
+           
+           <div className="modal-body">
+             <div className="input-group">
+               <label>Plan Name</label>
+               <div className="input-wrapper">
+                 <input
+                   type="text"
+                   value={newPlanName}
+                   onChange={(e) => setNewPlanName(e.target.value)}
+                   placeholder="Enter plan name..."
+                   autoFocus
+                   maxLength={50}
+                   className="modern-input"
+                 />
+                 <div className="input-icon">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                     <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z"/>
+                   </svg>
+                 </div>
+               </div>
+               <div className="input-counter">
+                 {newPlanName.length}/50
+               </div>
+             </div>
+             
+             <div className="plan-preview">
+               <div className="preview-card">
+                 <div className="preview-icon">
+                   <img src="/assets/icons/custom-plan.png" alt="Custom Plan" />
+                 </div>
+                 <div className="preview-content">
+                   <h4>{newPlanName || 'Your Plan Name'}</h4>
+                   <p>Custom Plan • 0% Complete</p>
+                 </div>
+               </div>
+             </div>
+           </div>
+           
+           <div className="modal-actions">
+             <button 
+               className="btn-secondary" 
+               onClick={handleCancelCreate}
+             >
+               Cancel
+             </button>
+             <button 
+               className="btn-primary" 
+               onClick={handleCreatePlan}
+               disabled={!newPlanName.trim()}
+             >
+               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                 <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+               </svg>
+               Create Plan
+             </button>
+           </div>
+         </div>
+       </IonModal>
 
-             {/* Bottom Navigation */}
+       {/* Custom Plan Modal */}
+       <IonModal isOpen={showCustomPlanModal} onDidDismiss={() => setShowCustomPlanModal(false)}>
+         <IonHeader>
+           <IonToolbar>
+             <IonButtons slot="start">
+               <IonButton onClick={() => setShowCustomPlanModal(false)}>
+                 <IonIcon icon={close} />
+               </IonButton>
+             </IonButtons>
+             <IonTitle>{selectedCustomPlan?.title}</IonTitle>
+           </IonToolbar>
+         </IonHeader>
+         <IonContent className="custom-plan-modal-content">
+           <div className="custom-plan-background">
+             <img src="/assets/plans_minibg.jpeg" alt="Plan Background" />
+           </div>
+           <div className="custom-plan-content">
+             <div className="custom-plan-header">
+               <div className="custom-plan-icon">
+                 <img src={selectedCustomPlan?.icon} alt={selectedCustomPlan?.title} />
+               </div>
+               <h2>{selectedCustomPlan?.title}</h2>
+               <p>{selectedCustomPlan?.description}</p>
+             </div>
+             
+             <div className="custom-plan-progress">
+               <h3>Progress</h3>
+               <div className="progress-container">
+                 <div className="progress-bar">
+                   <div 
+                     className="progress-fill" 
+                     style={{ width: `${selectedCustomPlan?.progress || 0}%` }}
+                   ></div>
+                 </div>
+                 <span className="progress-text">{selectedCustomPlan?.progress || 0}%</span>
+               </div>
+             </div>
+             
+             <div className="custom-plan-actions">
+               <IonButton expand="block" className="edit-btn">
+                 Edit Plan
+               </IonButton>
+               <IonButton expand="block" fill="outline" className="share-btn">
+                 Share Plan
+               </IonButton>
+             </div>
+           </div>
+         </IonContent>
+       </IonModal>
+
+              {/* Bottom Navigation */}
        <div className="bottom-nav">
          <div className="nav-item" onClick={() => {
            // Remove focus from any focused element before navigation

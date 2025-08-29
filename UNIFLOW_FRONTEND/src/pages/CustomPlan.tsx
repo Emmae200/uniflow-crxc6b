@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { IonSegment, IonSegmentButton, IonPage } from '@ionic/react';
 import { useParams, useHistory } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 import Targets from './Targets';
 import Tasks from './Tasks';
 import Progress from './Progress';
@@ -38,18 +39,12 @@ const CustomPlan: React.FC = () => {
   return (
     <IonPage>
       <div className="custom-plan-screen">
-        {/* Status Bar Spacer */}
-        <div className="status-bar-spacer"></div>
-
-        {/* Header */}
-        <div className="header-content">
-          <button className="back-button" onClick={handleBackClick}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
-            </svg>
-          </button>
-          <h1 className="page-title">{planTitle}</h1>
-        </div>
+        <PageHeader
+          title={planTitle}
+          backgroundColor="#447055"
+          textColor="white"
+          onBackClick={handleBackClick}
+        />
 
         {/* Plan Mini Banner */}
         <div className="plan-mini-banner">

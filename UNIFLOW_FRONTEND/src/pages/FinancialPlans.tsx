@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IonPage, IonContent, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 import Targets from './Targets';
 import Tasks from './Tasks';
 import Progress from './Progress';
@@ -26,18 +27,12 @@ const FinancialPlans: React.FC = () => {
     <IonPage>
       <IonContent>
         <div className="financial-plans-screen">
-          {/* Status Bar Spacer */}
-          <div className="status-bar-spacer"></div>
-          
-          {/* Header */}
-          <div className="header-content">
-            <button className="back-button" onClick={handleBackClick}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-              </svg>
-            </button>
-            <h1 className="page-title">Financial Plans</h1>
-          </div>
+          <PageHeader
+            title="Financial Plans"
+            backgroundColor="#447055"
+            textColor="white"
+            onBackClick={handleBackClick}
+          />
 
           {/* Plan Mini Banner */}
           <div className="plan-mini-banner">

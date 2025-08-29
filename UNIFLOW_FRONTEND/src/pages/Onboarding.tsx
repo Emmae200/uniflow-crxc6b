@@ -1,5 +1,5 @@
 import { IonContent, IonPage } from '@ionic/react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import './Onboarding.css';
 
 const Onboarding: React.FC = () => {
