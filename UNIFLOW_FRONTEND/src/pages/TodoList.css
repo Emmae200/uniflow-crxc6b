@@ -17,7 +17,6 @@ ion-page {
 /* Status Bar Spacer */
 .status-bar-spacer {
   height: var(--ion-safe-area-top, 44px);
-  background: #447055;
   min-height: 44px;
 }
 

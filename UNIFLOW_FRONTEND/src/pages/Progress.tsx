@@ -1,7 +1,7 @@
 import React from 'react';
-import './Progress.css';
 
 const Progress: React.FC = () => {
+  console.log('Progress component rendered');
 
   return (
     <div className="progress-container">
@@ -13,9 +13,9 @@ const Progress: React.FC = () => {
         <div className="progress-bars">
           {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
             <div key={index} className="progress-day">
-              <div className="progress-bar weekly-progress-bar">
+              <div className="weekly-progress-bar">
                 <div 
-                  className="progress-fill weekly-progress-fill" 
+                  className="weekly-progress-fill" 
                   style={{ height: `${[70, 70, 70, 60, 70, 70, 70][index]}%` }}
                 ></div>
               </div>

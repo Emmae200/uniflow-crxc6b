@@ -14,12 +14,15 @@ const Profile: React.FC = () => {
     <IonPage>
       <IonContent fullscreen className="profile-screen">
 
+        {/* Status Bar Spacer */}
+        <div className="status-bar-spacer"></div>
 
         {/* Header */}
         <div className="profile-header">
           <button className="back-button" onClick={() => history.push('/home')}>
             <img src="/assets/icons/icons2/211686_back_arrow_icon.svg" alt="Back" />
           </button>
+          <div></div>
           <button className="settings-button">
             <img src="/assets/icons/icons2/settings_icon.svg" alt="Settings" />
           </button>
@@ -41,38 +44,38 @@ const Profile: React.FC = () => {
 
         {/* User Information Form */}
         <div className="profile-form">
-                     <div className="form-group">
-             <label className="form-label">Your Email</label>
-             <div className="input-field">
-               <img src="/assets/icons/icons2/message_icon.svg" alt="Email" className="input-icon" />
-                                    <input 
-                       type="email" 
-                       placeholder="xxx@gmail.com" 
-                       className="form-input"
-                       value={user?.email || ''}
-                       readOnly
-                     />
-             </div>
-           </div>
+                                           <div className="form-group">
+              <label className="form-label">Your Email</label>
+              <div className="input-field">
+                <img src="/assets/icons/icons2/message_icon.svg" alt="Email" className="input-icon" />
+                <input 
+                  type="email" 
+                  placeholder="user@apple.com" 
+                  className="form-input"
+                  value={user?.email || ''}
+                  readOnly
+                />
+              </div>
+            </div>
 
-                     <div className="form-group">
-             <label className="form-label">Phone Number</label>
-             <div className="input-field">
-               <img src="/assets/icons/icons2/phone_icon.svg" alt="Phone" className="input-icon" />
-               <input 
-                 type={showPhone ? "text" : "password"} 
-                 placeholder="+234" 
-                 className="form-input"
-                 readOnly
-               />
-               <button 
-                 className="visibility-toggle"
-                 onClick={() => setShowPhone(!showPhone)}
-               >
-                 <img src="/assets/icons/icons2/hide_icon.svg" alt="Toggle visibility" />
-               </button>
-             </div>
-           </div>
+                                           <div className="form-group">
+              <label className="form-label">Phone Number</label>
+              <div className="input-field">
+                <img src="/assets/icons/icons2/phone_icon.svg" alt="Phone" className="input-icon" />
+                <input 
+                  type={showPhone ? "text" : "password"} 
+                  placeholder="+234 123 456 7890" 
+                  className="form-input"
+                  readOnly
+                />
+                <button 
+                  className="visibility-toggle"
+                  onClick={() => setShowPhone(!showPhone)}
+                >
+                  <img src="/assets/icons/icons2/hide_icon.svg" alt="Toggle visibility" />
+                </button>
+              </div>
+            </div>
 
           <div className="form-group">
             <label className="form-label">School</label>
@@ -89,10 +92,9 @@ const Profile: React.FC = () => {
                      <div className="form-group">
              <label className="form-label">Change Password</label>
              <div className="input-field">
-               <img src="/assets/icons/icons2/lock_icon.svg" alt="Password" className="input-icon" />
                <input 
                  type={showPassword ? "text" : "password"} 
-                 placeholder="xxx@gmail.com" 
+                 placeholder="Enter new password" 
                  className="form-input"
                  readOnly
                />

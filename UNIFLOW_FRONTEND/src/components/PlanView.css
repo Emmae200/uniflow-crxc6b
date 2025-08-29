@@ -1,0 +1,349 @@
+/* Plan View Screen - Universal for all plan types */
+.plan-view-screen {
+  background: #447055;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+/* Status Bar Spacer */
+.status-bar-spacer {
+  height: 60px;
+  width: 100%;
+  background: #447055;
+}
+
+/* Plan Header */
+.plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 24px;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  left: 24px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: white;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  z-index: 10;
+}
+
+.back-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.back-button-right {
+  position: absolute;
+  right: 24px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: white;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  z-index: 10;
+}
+
+.back-button-right:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.plan-title {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+/* Plan Mini Banner */
+.plan-mini-banner {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.plan-mini-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+/* Segment Container */
+.segment-container {
+  padding: 20px 24px;
+}
+
+.plan-segment {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 4px;
+  backdrop-filter: blur(10px);
+}
+
+.segment-button {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.segment-button.active {
+  color: white;
+}
+
+.segment-button:hover {
+  color: white;
+}
+
+/* Plan Content */
+
+/* Progress Component Styles - Added to ensure they load */
+.plan-view-screen .progress-container {
+  padding: 0;
+  padding-top: 24px;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-description {
+  color: white;
+  font-size: 14px;
+  margin: 0 0 24px 0;
+  line-height: 1.4;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+
+.weekly-progress {
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.progress-bars {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  height: 240px;
+  width: 100%;
+}
+
+.progress-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.plan-view-screen .progress-container .weekly-progress-bar {
+  width: 12px !important;
+  height: 200px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 6px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  flex: none !important;
+}
+
+.plan-view-screen .progress-container .weekly-progress-fill {
+  width: 100% !important;
+  height: auto !important;
+  background: linear-gradient(90deg, #90ee90 0%, #32cd32 100%) !important;
+  border-radius: 6px !important;
+  transition: height 0.3s ease !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  overflow: visible !important;
+  animation: colorChange 3s infinite, pulse 1s ease-in-out infinite !important;
+}
+
+.plan-view-screen .progress-container .weekly-progress-fill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5) !important;
+  animation: moveUpDown 2s ease-in-out infinite !important;
+  border-radius: 6px !important;
+}
+
+.plan-view-screen .progress-container .weekly-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 0, 0.3) !important;
+  animation: moveLeftRight 1.5s ease-in-out infinite !important;
+  border-radius: 6px !important;
+}
+
+.day-label {
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.productivity-report {
+  padding: 24px;
+  color: white;
+}
+
+.report-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.report-week {
+  font-size: 14px;
+  color: #90ee90;
+  margin: 0 0 4px 0;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+
+.report-user {
+  font-size: 14px;
+  color: #90ee90;
+  margin: 0 0 16px 0;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+
+.report-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 0;
+}
+
+.report-quote {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  font-style: italic;
+  color: white;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Animation keyframes */
+@keyframes colorChange {
+  0% { background: #ff0000 !important; }
+  25% { background: #00ff00 !important; }
+  50% { background: #ff6600 !important; }
+  75% { background: #ffff00 !important; }
+  100% { background: #ff0000 !important; }
+}
+
+@keyframes moveUpDown {
+  0% { transform: translateY(0); opacity: 1; }
+  25% { transform: translateY(-15px); opacity: 0.8; }
+  50% { transform: translateY(-20px); opacity: 1; }
+  75% { transform: translateY(-15px); opacity: 0.8; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes moveLeftRight {
+  0% { transform: translateX(0); opacity: 1; }
+  25% { transform: translateX(10px); opacity: 0.8; }
+  50% { transform: translateX(15px); opacity: 1; }
+  75% { transform: translateX(10px); opacity: 0.8; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.plan-content {
+  padding: 20px 24px;
+  flex: 1;
+}
+
+/* Content Containers */
+.targets-container,
+.tasks-container,
+.progress-container {
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .plan-header {
+    padding: 16px 20px;
+  }
+  
+  .plan-title {
+    font-size: 20px;
+  }
+  
+  .segment-container {
+    padding: 16px 20px;
+  }
+  
+  .plan-content {
+    padding: 16px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .plan-header {
+    padding: 12px 16px;
+  }
+  
+  .plan-title {
+    font-size: 18px;
+  }
+  
+  .segment-container {
+    padding: 12px 16px;
+  }
+  
+  .plan-content {
+    padding: 12px 16px;
+  }
+  
+  .targets-container,
+  .tasks-container,
+  .progress-container {
+    padding: 16px;
+  }
+}

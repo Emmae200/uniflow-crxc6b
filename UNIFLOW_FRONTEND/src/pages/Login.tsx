@@ -87,23 +87,21 @@ const Login: React.FC = () => {
           {/* Login Form */}
           <div className="login-form">
             <IonItem className="login-input-item">
-              <IonLabel position="floating">Email</IonLabel>
               <IonInput
                 type="email"
                 value={formData.email}
                 onIonChange={(e) => handleInputChange('email', e.detail.value || '')}
-                placeholder="Enter your email"
+                placeholder="Email"
                 className="login-input"
               />
             </IonItem>
 
             <IonItem className="login-input-item">
-              <IonLabel position="floating">Password</IonLabel>
               <IonInput
                 type="password"
                 value={formData.password}
                 onIonChange={(e) => handleInputChange('password', e.detail.value || '')}
-                placeholder="Enter your password"
+                placeholder="Password"
                 className="login-input"
               />
             </IonItem>

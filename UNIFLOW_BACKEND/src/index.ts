@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { Hono } from 'hono'
 import { serve } from '@hono/node-server'
+import { cors } from 'hono/cors'
 import { connectDB } from './config/db'
 import authRoutes from './routes/auth'
 import { authMiddleware } from './middleware/auth'
@@ -12,6 +13,14 @@ import { handleError } from './utils/errorHandler'
 
 // Create app once
 const app = new Hono()
+
+// Enable CORS for frontend
+app.use('*', cors({
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}))
 
 // API docs
 app.get('/docs', apiReference({

@@ -2,7 +2,7 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
+import { signTokens } from "./utils/jwt";
 import { User } from "./models/User";
 
 dotenv.config();
@@ -44,14 +44,10 @@ passport.use(
           }
         }
 
-        // ✅ Instead of session, issue JWT
-        const token = jwt.sign(
-          { userId: user._id, email: user.email },
-          process.env.JWT_SECRET!,
-          { expiresIn: "7d" }
-        );
+        // ✅ Use consistent JWT signing from utils
+        const { token, refreshToken: jwtRefreshToken } = signTokens(user._id.toString());
 
-        return done(null, { user, token });
+        return done(null, { user, token, refreshToken: jwtRefreshToken });
       } catch (err) {
         console.error("Passport Google strategy error:", err);
         return done(err, null);

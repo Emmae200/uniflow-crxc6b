@@ -23,15 +23,30 @@
   }
 }
 
-/* Header Content */
-.header-content {
+/* Custom Plan Header */
+.custom-plan-header {
   display: flex;
   align-items: center;
   padding: 16px;
   padding-top: 0px;
   position: relative;
-  background: #447055 !important;
+  background: #447055;
   animation: slideInDown 0.8s ease-out 0.2s both;
+}
+
+.custom-plan-title {
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: 'Roboto', sans-serif;
 }
 
 @keyframes slideInDown {
@@ -67,21 +82,7 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Page Title */
-.page-title {
-  text-align: center;
-  color: white;
-  font-size: 24px;
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: 'Roboto', sans-serif;
-}
+
 
 /* Segment Container */
 .segment-container {

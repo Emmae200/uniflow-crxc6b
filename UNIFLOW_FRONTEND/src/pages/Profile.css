@@ -8,6 +8,14 @@
   min-height: 100vh;
 }
 
+/* Status Bar Spacer - Profile Page Specific */
+.profile-screen .status-bar-spacer {
+  height: var(--ion-safe-area-top, 44px);
+  background: #E7E8E3;
+  min-height: 44px;
+  width: 100%;
+}
+
 
 
 /* Profile Header */
@@ -172,6 +180,7 @@
   color: #000;
   outline: none;
   font-family: 'Roboto', sans-serif;
+  margin-left: 20px;
 }
 
 .form-input::placeholder {

@@ -3,6 +3,8 @@
   padding: 0;
   padding-top: 24px;
   font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .progress-description {
@@ -17,6 +19,7 @@
 /* Weekly Progress */
 .weekly-progress {
   margin-bottom: 32px;
+  width: 100%;
 }
 
 .progress-bars {
@@ -24,7 +27,8 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 12px;
-  height: 160px;
+  height: 240px;
+  width: 100%;
 }
 
 .progress-day {
@@ -38,22 +42,128 @@
 /* Progress Component Specific Styles - DO NOT AFFECT STUDY TRACKER */
 .progress-container .weekly-progress-bar {
   width: 12px !important;
-  height: 140px !important;
-  background: white !important;
+  height: 200px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
   border-radius: 6px !important;
   position: relative !important;
   overflow: hidden !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  flex: none !important;
 }
 
 .progress-container .weekly-progress-fill {
   width: 100% !important;
-  background: #90ee90 !important;
+  height: auto !important;
+  background: #ff0000 !important;
   border-radius: 6px !important;
   transition: height 0.3s ease !important;
   position: absolute !important;
   bottom: 0 !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden !important;
+  animation: colorChange 3s infinite !important;
 }
+
+.progress-container .weekly-progress-fill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5) !important;
+  animation: moveUpDown 2s ease-in-out infinite !important;
+}
+
+.progress-container .weekly-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 0, 0.3) !important;
+  animation: moveLeftRight 1.5s ease-in-out infinite !important;
+}
+
+/* Override any conflicting styles from other components */
+.progress-container .progress-bar {
+  width: 12px !important;
+  height: 200px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 6px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  flex: none !important;
+}
+
+.progress-container .progress-fill {
+  width: 100% !important;
+  height: auto !important;
+  background: linear-gradient(135deg, #90ee90 0%, #32cd32 100%) !important;
+  border-radius: 6px !important;
+  transition: height 0.3s ease !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden !important;
+}
+
+.progress-container .progress-fill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5) !important;
+  animation: moveUpDown 2s ease-in-out infinite !important;
+}
+
+.progress-container .progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 0, 0.3) !important;
+  animation: moveLeftRight 1.5s ease-in-out infinite !important;
+}
+
+/* Obvious animation keyframes */
+@keyframes colorChange {
+  0% { background: #ff0000 !important; }
+  25% { background: #00ff00 !important; }
+  50% { background: #ff6600 !important; }
+  75% { background: #ffff00 !important; }
+  100% { background: #ff0000 !important; }
+}
+
+@keyframes moveUpDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes moveLeftRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+
 
 .day-label {
   color: white;
@@ -65,11 +175,8 @@
 
 /* Productivity Report */
 .productivity-report {
-  background: #447055;
-  border-radius: 16px;
   padding: 24px;
   color: white;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .report-title {

@@ -1,6 +1,6 @@
 import { IonContent, IonPage } from '@ionic/react';
 import { useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import './Splash.css';
 
 const Splash: React.FC = () => {

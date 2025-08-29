@@ -1,5 +1,5 @@
 import { IonContent, IonPage } from '@ionic/react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import './Onboarding.css';
 
 const Onboarding: React.FC = () => {
@@ -14,8 +14,11 @@ const Onboarding: React.FC = () => {
   };
 
   const handleSkip = () => {
-    // You can add navigation to the main app or another screen here
-    console.log('Skip clicked');
+    // Remove focus before navigation to prevent ARIA conflicts
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    history.push('/home');
   };
 
   return (

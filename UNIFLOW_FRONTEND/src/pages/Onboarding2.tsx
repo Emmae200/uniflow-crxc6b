@@ -1,5 +1,5 @@
 import { IonContent, IonPage } from '@ionic/react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import './Onboarding2.css';
 
@@ -27,7 +27,7 @@ const Onboarding2: React.FC = () => {
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
-    history.push('/signup');
+    history.push('/home');
   };
 
   return (

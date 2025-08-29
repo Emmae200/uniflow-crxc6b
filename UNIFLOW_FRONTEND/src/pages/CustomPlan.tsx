@@ -40,15 +40,15 @@ const CustomPlan: React.FC = () => {
       <div className="custom-plan-screen">
         {/* Status Bar Spacer */}
         <div className="status-bar-spacer"></div>
-
+        
         {/* Header */}
-        <div className="header-content">
+        <div className="custom-plan-header">
           <button className="back-button" onClick={handleBackClick}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
             </svg>
           </button>
-          <h1 className="page-title">{planTitle}</h1>
+          <h1 className="custom-plan-title">{planTitle}</h1>
         </div>
 
         {/* Plan Mini Banner */}

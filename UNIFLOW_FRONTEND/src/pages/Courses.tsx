@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonButton, IonIcon } from '@ionic/react';
 import { search, add } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
+import BottomNavigation from '../components/BottomNavigation';
 import './Courses.css';
 
 interface Course {
@@ -21,10 +22,10 @@ const Courses: React.FC = () => {
   const [courses] = useState<Course[]>([
     {
       id: '1',
-      code: 'BUS 101',
+      code: 'TMC 101',
       week: 5,
       lastOpened: '12-05-25',
-      color: 'linear-gradient(135deg, #87CEEB 0%, #4682B4 100%)',
+      color: 'linear-gradient(135deg, rgba(173, 216, 230, 0.8) 0%, rgba(135, 206, 235, 0.9) 100%)',
       iconColor: '#0066CC',
       fileIcon: '/assets/icons/Blue_File.png'
     },
@@ -33,61 +34,61 @@ const Courses: React.FC = () => {
       code: 'BUS 101',
       week: 5,
       lastOpened: '12-05-25',
-      color: 'linear-gradient(135deg, #90EE90 0%, #228B22 100%)',
+      color: 'linear-gradient(135deg, rgba(144, 238, 144, 0.8) 0%, rgba(152, 251, 152, 0.9) 100%)',
       iconColor: '#006400',
       fileIcon: '/assets/icons/Green_File.png'
     },
     {
       id: '3',
-      code: 'BUS 101',
+      code: 'PHY 101',
       week: 5,
       lastOpened: '12-05-25',
-      color: 'linear-gradient(135deg, #FFB6C1 0%, #DC143C 100%)',
-      iconColor: '#FF4500',
+      color: 'linear-gradient(135deg, rgba(255, 182, 193, 0.8) 0%, rgba(255, 192, 203, 0.9) 100%)',
+      iconColor: '#DC143C',
       fileIcon: '/assets/icons/Red_File.png'
     },
     {
       id: '4',
-      code: 'BUS 101',
+      code: 'FIN 101',
       week: 5,
       lastOpened: '12-05-25',
-      color: 'linear-gradient(135deg, #DDA0DD 0%, #8A2BE2 100%)',
+      color: 'linear-gradient(135deg, rgba(221, 160, 221, 0.8) 0%, rgba(230, 190, 255, 0.9) 100%)',
       iconColor: '#8A2BE2',
       fileIcon: '/assets/icons/purple_file.png'
     },
     {
       id: '5',
-      code: 'BUS 101',
+      code: 'MIS 101',
       week: 5,
       lastOpened: '12-05-25',
-      color: 'linear-gradient(135deg, #87CEEB 0%, #4682B4 100%)',
+      color: 'linear-gradient(135deg, rgba(173, 216, 230, 0.8) 0%, rgba(135, 206, 235, 0.9) 100%)',
       iconColor: '#0066CC',
       fileIcon: '/assets/icons/Blue_File.png'
     },
     {
       id: '6',
-      code: 'BUS 101',
+      code: 'MAT 101',
       week: 5,
       lastOpened: '12-05-25',
-      color: 'linear-gradient(135deg, #90EE90 0%, #228B22 100%)',
+      color: 'linear-gradient(135deg, rgba(144, 238, 144, 0.8) 0%, rgba(152, 251, 152, 0.9) 100%)',
       iconColor: '#006400',
       fileIcon: '/assets/icons/Green_File.png'
     },
     {
       id: '7',
-      code: 'BUS 101',
+      code: 'ENG 101',
       week: 5,
       lastOpened: '12-05-25',
-      color: 'linear-gradient(135deg, #FFB6C1 0%, #DC143C 100%)',
-      iconColor: '#FF4500',
+      color: 'linear-gradient(135deg, rgba(255, 182, 193, 0.8) 0%, rgba(255, 192, 203, 0.9) 100%)',
+      iconColor: '#DC143C',
       fileIcon: '/assets/icons/Red_File.png'
     },
     {
       id: '8',
-      code: 'BUS 101',
+      code: 'HIS 101',
       week: 5,
       lastOpened: '12-05-25',
-      color: 'linear-gradient(135deg, #DDA0DD 0%, #8A2BE2 100%)',
+      color: 'linear-gradient(135deg, rgba(221, 160, 221, 0.8) 0%, rgba(230, 190, 255, 0.9) 100%)',
       iconColor: '#8A2BE2',
       fileIcon: '/assets/icons/purple_file.png'
     }
@@ -117,18 +118,21 @@ const Courses: React.FC = () => {
   }, [courses]);
 
   const handleAddCourse = () => {
-    // TODO: Implement add course functionality
-    console.log('Add course clicked');
+    // Navigate to plans page to add a new course/plan
+    console.log('Add course clicked - THIS SHOULD NOT HAPPEN WHEN CLICKING COURSES NAV');
+    history.push('/plans-page');
   };
 
   const handleSearch = () => {
-    // TODO: Implement search functionality
+    // Navigate to home page for search functionality
     console.log('Search clicked');
+    history.push('/home');
   };
 
   const handleCourseClick = (courseId: string) => {
-    // TODO: Navigate to course details
+    // Course cards are now non-clickable
     console.log('Course clicked:', courseId);
+    // No navigation - cards are just for display
   };
 
   return (
@@ -139,15 +143,15 @@ const Courses: React.FC = () => {
           <div className="status-bar-spacer"></div>
           
           {/* Header */}
-          <div className="header-content">
-            <h1 className="page-title">Courses</h1>
+          <div className="courses-header">
+            <h1 className="courses-title">Courses</h1>
             <div className="header-actions">
-              <IonButton fill="clear" className="search-btn" onClick={handleSearch}>
-                <IonIcon icon={search} />
-              </IonButton>
-              <IonButton fill="clear" className="add-course-btn" onClick={handleAddCourse}>
-                <IonIcon icon={add} />
-              </IonButton>
+              <button className="search-btn" onClick={handleSearch}>
+                <img src="/assets/icons/icons2/search_icon.svg" alt="Search" />
+              </button>
+              <button className="add-course-btn" onClick={handleAddCourse}>
+                <img src="/assets/icons/icons2/299068_add_sign_icon.svg" alt="Add Course" />
+              </button>
             </div>
           </div>
 
@@ -183,55 +187,7 @@ const Courses: React.FC = () => {
            </div>
 
           {/* Bottom Navigation */}
-          <div className="bottom-nav">
-            <div className="nav-item" onClick={() => {
-              console.log('Courses: Navigating to home...');
-              // Remove focus from any focused element before navigation
-              const focusedElement = document.activeElement as HTMLElement;
-              if (focusedElement) {
-                focusedElement.blur();
-              }
-              try {
-                history.push('/home');
-              } catch (error) {
-                console.error('Navigation error:', error);
-                window.location.href = '/home';
-              }
-            }}>
-              <div className="nav-icon">🏠</div>
-              <span>Home</span>
-            </div>
-            <div className="nav-item" onClick={() => {
-              console.log('Courses: Navigating to plans...');
-              // Remove focus from any focused element before navigation
-              const focusedElement = document.activeElement as HTMLElement;
-              if (focusedElement) {
-                focusedElement.blur();
-              }
-              try {
-                history.push('/plans-page');
-              } catch (error) {
-                console.error('Navigation error:', error);
-                window.location.href = '/plans-page';
-              }
-            }}>
-              <div className="nav-icon">📋</div>
-              <span>Plans</span>
-            </div>
-            <div className="nav-item central">
-              <div className="nav-icon">🌿</div>
-            </div>
-            <div className="nav-item active">
-              <div className="nav-icon">📚</div>
-              <span>Courses</span>
-            </div>
-            <div className="nav-item">
-              <div className="nav-icon">
-                <img src="/assets/icons/icons2/1814109_hamburger_menu_icon.svg" alt="Menu" />
-              </div>
-              <span>More</span>
-            </div>
-          </div>
+          <BottomNavigation />
         </div>
       </IonContent>
     </IonPage>

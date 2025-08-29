@@ -107,49 +107,45 @@ const Register: React.FC = () => {
           
           {/* Register Form */}
           <div className="register-form">
-            <IonItem className="register-input-item">
-              <IonLabel position="floating">Full Name</IonLabel>
-              <IonInput
-                type="text"
-                value={formData.name}
-                onIonChange={(e) => handleInputChange('name', e.detail.value || '')}
-                placeholder="Enter your full name"
-                className="register-input"
-              />
-            </IonItem>
+                         <IonItem className="register-input-item">
+               <IonInput
+                 type="text"
+                 value={formData.name}
+                 onIonChange={(e) => handleInputChange('name', e.detail.value || '')}
+                 placeholder="Full Name"
+                 className="register-input"
+               />
+             </IonItem>
+
+                         <IonItem className="register-input-item">
+               <IonInput
+                 type="email"
+                 value={formData.email}
+                 onIonChange={(e) => handleInputChange('email', e.detail.value || '')}
+                 placeholder="Email"
+                 className="register-input"
+               />
+             </IonItem>
 
             <IonItem className="register-input-item">
-              <IonLabel position="floating">Email</IonLabel>
-              <IonInput
-                type="email"
-                value={formData.email}
-                onIonChange={(e) => handleInputChange('email', e.detail.value || '')}
-                placeholder="Enter your email"
-                className="register-input"
-              />
-            </IonItem>
-
-            <IonItem className="register-input-item">
-              <IonLabel position="floating">Password</IonLabel>
               <IonInput
                 type="password"
                 value={formData.password}
                 onIonChange={(e) => handleInputChange('password', e.detail.value || '')}
-                placeholder="Enter your password"
+                placeholder="Password"
                 className="register-input"
               />
             </IonItem>
 
-            <IonItem className="register-input-item">
-              <IonLabel position="floating">Confirm Password</IonLabel>
-              <IonInput
-                type="password"
-                value={formData.confirmPassword}
-                onIonChange={(e) => handleInputChange('confirmPassword', e.detail.value || '')}
-                placeholder="Confirm your password"
-                className="register-input"
-              />
-            </IonItem>
+                         <IonItem className="register-input-item">
+               <IonInput
+                 type="password"
+                 value={formData.confirmPassword}
+                 onIonChange={(e) => handleInputChange('confirmPassword', e.detail.value || '')}
+                 placeholder="Confirm Password"
+                 className="register-input"
+               />
+             </IonItem>
 
             <IonButton
               expand="block"

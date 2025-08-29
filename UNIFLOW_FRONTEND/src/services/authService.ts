@@ -1,5 +1,5 @@
-// Mock authentication service (no backend required)
-// This simulates API calls for development purposes
+// Real authentication service with backend integration
+import apiService from './apiService';
 
 export interface User {
   id: string;
@@ -30,93 +30,60 @@ export interface AuthResponse {
 class AuthService {
   // Register new user
   async register(data: RegisterData): Promise<AuthResponse> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Check if user already exists (mock)
-    const existingUser = localStorage.getItem('user');
-    if (existingUser) {
-      const user = JSON.parse(existingUser);
-      if (user.email === data.email) {
-        throw new Error('User already exists');
-      }
+    try {
+      const response = await apiService.signup(data) as AuthResponse;
+      
+      // Store token and user data
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+      
+      return response;
+    } catch (error: any) {
+      console.error('Registration failed:', error);
+      throw new Error(error.message || 'Registration failed');
     }
-    
-    // Create mock user
-    const user: User = {
-      id: Date.now().toString(),
-      name: data.name,
-      email: data.email,
-      avatar: '🐸',
-      streak: 0,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    
-    const token = 'mock-token-' + Date.now();
-    
-    // Store token and user data
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    
-    return { user, token };
   }
 
   // Login user
   async login(data: LoginData): Promise<AuthResponse> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Check if user exists (mock)
-    const existingUser = localStorage.getItem('user');
-    if (!existingUser) {
-      throw new Error('Invalid credentials');
+    try {
+      const response = await apiService.signin(data) as AuthResponse;
+      
+      // Store token and user data
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+      
+      return response;
+    } catch (error: any) {
+      console.error('Login failed:', error);
+      throw new Error(error.message || 'Login failed');
     }
-    
-    const user = JSON.parse(existingUser);
-    if (user.email !== data.email) {
-      throw new Error('Invalid credentials');
-    }
-    
-    const token = 'mock-token-' + Date.now();
-    
-    // Store token and user data
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    
-    return { user, token };
   }
 
   // Get current user profile
   async getProfile(): Promise<User> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    const userStr = localStorage.getItem('user');
-    if (!userStr) {
-      throw new Error('User not found');
+    try {
+      const user = await apiService.getProfile() as User;
+      // Update local storage with fresh data
+      localStorage.setItem('user', JSON.stringify(user));
+      return user;
+    } catch (error: any) {
+      console.error('Get profile failed:', error);
+      throw new Error(error.message || 'Failed to get profile');
     }
-    
-    return JSON.parse(userStr);
   }
 
   // Update user profile
   async updateProfile(data: Partial<User>): Promise<User> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const userStr = localStorage.getItem('user');
-    if (!userStr) {
-      throw new Error('User not found');
+    try {
+      const updatedUser = await apiService.updateProfile(data) as User;
+      // Update local storage with fresh data
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      return updatedUser;
+    } catch (error: any) {
+      console.error('Update profile failed:', error);
+      throw new Error(error.message || 'Failed to update profile');
     }
-    
-    const user = JSON.parse(userStr);
-    const updatedUser = { ...user, ...data, updatedAt: new Date().toISOString() };
-    
-    // Update stored user data
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-    
-    return updatedUser;
   }
 
   // Change password
@@ -172,26 +139,17 @@ class AuthService {
     return { user: mockUser, token: mockToken };
   }
 
-  // Simulate OAuth for Google (since the backend doesn't have OAuth)
+  // Google OAuth
   async signInWithGoogle(): Promise<AuthResponse> {
-    // For now, we'll simulate this with a mock response
-    // In a real implementation, you'd integrate with Google's OAuth
-    const mockUser: User = {
-      id: 'google-user-1',
-      name: 'Google User',
-      email: 'user@gmail.com',
-      avatar: '🟢',
-      streak: 0,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    
-    const mockToken = 'mock-google-token-' + Date.now();
-    
-    localStorage.setItem('token', mockToken);
-    localStorage.setItem('user', JSON.stringify(mockUser));
-    
-    return { user: mockUser, token: mockToken };
+    try {
+      // Redirect to Google OAuth
+      apiService.googleAuth();
+      // This will redirect the user, so we won't return anything
+      throw new Error('Redirecting to Google OAuth');
+    } catch (error: any) {
+      console.error('Google OAuth failed:', error);
+      throw error;
+    }
   }
 }
 
