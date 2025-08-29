@@ -1,7 +1,8 @@
 import { Profile } from '../models/profile'
 import { IUser } from '../models/User'
-import { asyncHandler, NotFoundError, ValidationError } from '../utils/errorHandler'
+import { asyncHandler, NotFoundError, ValidationError, AuthenticationError } from '../utils/errorHandler'
 import { Context } from 'hono'
+import { comparePassword, hashPassword } from '../utils/hash'
 
 /**
  * Ensure a profile exists for a user.
@@ -26,7 +27,6 @@ export const ensureProfile = async (user: IUser) => {
   }
   return profile
 }
-
 
 // --- Get Profile ---
 export const getProfile = asyncHandler(async (c: Context) => {
@@ -80,6 +80,40 @@ export const updateProfile = asyncHandler(async (c: Context) => {
 
   if (!updated) throw new NotFoundError('Profile not found')
   return c.json(updated)
+})
+
+// --- Change Password ---
+export const changePassword = asyncHandler(async (c: Context) => {
+  const userId = c.get('userId')
+  const { currentPassword, newPassword } = await c.req.json()
+
+  if (!currentPassword || !newPassword) {
+    throw new ValidationError('Current password and new password are required')
+  }
+
+  if (newPassword.length < 6) {
+    throw new ValidationError('New password must be at least 6 characters long')
+  }
+
+  // Find user and verify current password
+  const { User } = await import('../models/User')
+  const user = await User.findById(userId)
+  
+  if (!user || !user.passwordHash) {
+    throw new AuthenticationError('User not found or no password set')
+  }
+
+  const isMatch = await comparePassword(currentPassword, user.passwordHash)
+  if (!isMatch) {
+    throw new AuthenticationError('Current password is incorrect')
+  }
+
+  // Hash and update new password
+  const newPasswordHash = await hashPassword(newPassword)
+  user.passwordHash = newPasswordHash
+  await user.save()
+
+  return c.json({ message: 'Password changed successfully' })
 })
 
 // --- Delete Profile ---
