@@ -17,6 +17,13 @@ class ApiService {
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
     
+    console.log('🌐 API Request:', {
+      url,
+      method: options.method || 'GET',
+      headers: options.headers,
+      body: options.body
+    });
+    
     const config: RequestInit = {
       headers: {
         'Content-Type': 'application/json',
@@ -37,14 +44,23 @@ class ApiService {
     try {
       const response = await fetch(url, config);
       
+      console.log('📡 API Response:', {
+        status: response.status,
+        statusText: response.statusText,
+        url: response.url
+      });
+      
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
+        console.error('❌ API Error:', errorData);
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
-      return await response.json();
+      const data = await response.json();
+      console.log('✅ API Success:', data);
+      return data;
     } catch (error) {
-      console.error('API request failed:', error);
+      console.error('❌ API request failed:', error);
       throw error;
     }
   }
@@ -78,6 +94,13 @@ class ApiService {
   async googleAuth() {
     // Redirect to Google OAuth
     window.location.href = `${this.baseURL}/auth/google`;
+  }
+
+  // Handle Google OAuth callback
+  async handleGoogleCallback(code: string) {
+    return this.request(`/auth/google/callback?code=${code}`, {
+      method: 'GET',
+    });
   }
 
   // Profile management - Fixed endpoints to match backend

@@ -12,7 +12,22 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 }) => {
   const { isAuthenticated, loading } = useAuth();
   
+  // Also check localStorage directly as a fallback
+  const hasToken = !!localStorage.getItem('token');
+  const hasUser = !!localStorage.getItem('user');
+  
+  // Check if we're in the middle of OAuth processing
+  const isOAuthProcessing = window.location.search.includes('token') || 
+                           window.location.search.includes('code') ||
+                           window.location.search.includes('state');
+  
+  const isActuallyAuthenticated = isAuthenticated || (hasToken && hasUser) || isOAuthProcessing;
+  
   console.log('ProtectedRoute - isAuthenticated:', isAuthenticated);
+  console.log('ProtectedRoute - hasToken:', hasToken);
+  console.log('ProtectedRoute - hasUser:', hasUser);
+  console.log('ProtectedRoute - isOAuthProcessing:', isOAuthProcessing);
+  console.log('ProtectedRoute - isActuallyAuthenticated:', isActuallyAuthenticated);
   console.log('ProtectedRoute - loading:', loading);
   console.log('ProtectedRoute - path:', rest.path);
 
@@ -36,6 +51,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
       {...rest}
       render={props => {
         console.log('ProtectedRoute render - isAuthenticated:', isAuthenticated);
+        console.log('ProtectedRoute render - isActuallyAuthenticated:', isActuallyAuthenticated);
         console.log('ProtectedRoute render - path:', rest.path);
         
         // Temporarily allow courses page without authentication for testing
@@ -44,12 +60,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           return <Component {...props} />;
         }
         
-        return isAuthenticated ? (
+        // Allow access if authenticated OR if OAuth is processing (prevents redirect loops)
+        return isActuallyAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: "/signup",
               state: { from: props.location }
             }}
           />

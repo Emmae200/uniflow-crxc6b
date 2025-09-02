@@ -82,6 +82,7 @@ const App: React.FC = () => (
             
             {/* Protected Routes - Now properly secured */}
             <ProtectedRoute exact path="/home" component={Home} />
+            <ProtectedRoute exact path="/dashboard" component={Home} />
             <ProtectedRoute exact path="/profile" component={Profile} />
             <ProtectedRoute exact path="/plans-page" component={Plans} />
             <ProtectedRoute exact path="/courses" component={Courses} />
@@ -89,9 +90,21 @@ const App: React.FC = () => (
             <ProtectedRoute exact path="/weekly-schedule" component={WeeklySchedule} />
             <ProtectedRoute exact path="/todo-list" component={TodoList} />
             
-            {/* Default redirect */}
+            {/* Default redirect - Check if user is authenticated */}
             <Route exact path="/">
-              <Redirect to="/splash" />
+              {({ location }) => {
+                const isAuth = !!localStorage.getItem('token');
+                const isOAuthProcessing = window.location.search.includes('token') || 
+                                         window.location.search.includes('code') ||
+                                         window.location.search.includes('state');
+                
+                // If OAuth is processing, redirect to home to let the OAuth handler work
+                if (isOAuthProcessing) {
+                  return <Redirect to="/home" />;
+                }
+                
+                return isAuth ? <Redirect to="/home" /> : <Redirect to="/splash" />;
+              }}
             </Route>
           </IonRouterOutlet>
         </IonReactRouter>

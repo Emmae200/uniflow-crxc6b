@@ -1,13 +1,56 @@
-import { IonContent, IonPage, IonButton } from '@ionic/react';
+import { IonContent, IonPage, IonButton, IonToast } from '@ionic/react';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import AuthService from '../services/authService';
 import BottomNavigation from '../components/BottomNavigation';
 import './Home.css';
 
 const Home: React.FC = () => {
   const history = useHistory();
-  const { user, logout } = useAuth();
+  const { user, logout, login, updateUserState } = useAuth();
+  
+  // Handle authentication tokens from URL parameters (Google OAuth callback)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const refreshToken = urlParams.get('refreshToken');
+    const userData = urlParams.get('user');
+    
+    if (token && refreshToken && userData) {
+      setIsProcessingOAuth(true);
+      try {
+        // Parse user data
+        const user = JSON.parse(decodeURIComponent(userData));
+        
+        // Use AuthService to handle the callback
+        AuthService.handleGoogleCallback({ token, refreshToken, user });
+        
+        // Update the auth context directly
+        updateUserState(user);
+        
+        // Clear URL parameters but keep the user on the same page
+        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        // Show success message
+        setToastMessage('Successfully signed in with Google! Welcome to your dashboard!');
+        setToastColor('success');
+        setShowToast(true);
+        
+        // Reset processing state
+        setIsProcessingOAuth(false);
+        
+        // Prevent any automatic redirects during OAuth
+        console.log('Google OAuth completed successfully, staying on dashboard');
+      } catch (error) {
+        console.error('Error processing authentication tokens:', error);
+        setToastMessage('Error processing authentication');
+        setToastColor('danger');
+        setShowToast(true);
+        setIsProcessingOAuth(false);
+      }
+    }
+  }, [updateUserState]);
   
   // UI Enhancement states
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -46,6 +89,14 @@ const Home: React.FC = () => {
     priority: 'low' | 'medium' | 'critical';
     completed: boolean;
   }>>([]);
+
+  // API test states
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastColor, setToastColor] = useState<'success' | 'danger'>('success');
+  
+  // OAuth processing state
+  const [isProcessingOAuth, setIsProcessingOAuth] = useState(false);
 
   const toggleCalendarDropdown = () => {
     setShowCalendarDropdown(!showCalendarDropdown);
@@ -241,6 +292,34 @@ const Home: React.FC = () => {
     setTasks(tasks.filter(task => task.id !== taskId));
   };
 
+  // Test API connection
+  const testApiConnection = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/health');
+      const data = await response.json();
+      setToastMessage(`API Connected! Users: ${data.userCount}`);
+      setToastColor('success');
+      setShowToast(true);
+    } catch (error) {
+      setToastMessage('API Connection Failed!');
+      setToastColor('danger');
+      setShowToast(true);
+    }
+  };
+
+  // Debug authentication state
+  const debugAuthState = () => {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    const isAuth = !!token && !!user;
+    
+    setToastMessage(`Token: ${!!token}, User: ${!!user}, Auth: ${isAuth}`);
+    setToastColor('success');
+    setShowToast(true);
+    
+    console.log('Debug Auth State:', { token: !!token, user: !!user, isAuth });
+  };
+
   const handlePreviousMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
   };
@@ -303,6 +382,26 @@ const Home: React.FC = () => {
               <img src="/assets/icons/fire_streak.png" alt="Streak" className="flame-icon" />
               <span>5</span>
             </div>
+            <button 
+              className="logout-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                try {
+                  console.log('Logout button clicked');
+                  logout();
+                } catch (error) {
+                  console.error('Error in logout button click:', error);
+                  // Fallback: redirect directly
+                  window.location.href = '/signup';
+                }
+              }}
+              title="Logout"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17,7L15.59,8.41L18.17,11H8V13H18.17L15.59,15.59L17,17L22,12M4,5H12V3H4C2.89,3 2,3.89 2,5V19A2,2 0 0,0 4,21H12V19H4V5Z"/>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -315,6 +414,44 @@ const Home: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* API Test Button */}
+        <div style={{ padding: '10px', textAlign: 'center' }}>
+          <IonButton 
+            onClick={testApiConnection}
+            size="small"
+            color="primary"
+          >
+            Test API Connection
+          </IonButton>
+          
+          <IonButton 
+            onClick={debugAuthState}
+            size="small"
+            color="secondary"
+            style={{ marginLeft: '10px' }}
+          >
+            Debug Auth
+          </IonButton>
+          
+          {/* OAuth Processing Indicator */}
+          {isProcessingOAuth && (
+            <div style={{ 
+              marginTop: '10px', 
+              padding: '10px', 
+              backgroundColor: '#f0f8ff', 
+              borderRadius: '8px',
+              border: '1px solid #007bff'
+            }}>
+              <p style={{ margin: 0, color: '#007bff' }}>
+                🔐 Processing Google Sign-In... Please wait...
+              </p>
+              <p style={{ margin: '5px 0 0 0', fontSize: '12px', color: '#0056b3' }}>
+                Don't refresh the page or navigate away during this process
+              </p>
+            </div>
+          )}
+        </div>
 
 
 
@@ -880,6 +1017,16 @@ const Home: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* Toast for API test results */}
+          <IonToast
+            isOpen={showToast}
+            onDidDismiss={() => setShowToast(false)}
+            message={toastMessage}
+            duration={3000}
+            color={toastColor}
+            position="top"
+          />
         </IonContent>
       </IonPage>
     );

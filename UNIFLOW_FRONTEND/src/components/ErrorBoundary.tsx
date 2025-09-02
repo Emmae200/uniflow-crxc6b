@@ -17,11 +17,38 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error): State {
+    // Don't show error boundary for logout-related errors
+    if (error.message.includes('logout') || 
+        error.message.includes('redirect') || 
+        error.message.includes('navigation')) {
+      console.log('Suppressing error boundary for logout/redirect error:', error.message);
+      return { hasError: false, error: undefined };
+    }
+    
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
+    
+    // Log additional context
+    console.log('Error occurred at:', new Date().toISOString());
+    console.log('Current URL:', window.location.href);
+    console.log('User agent:', navigator.userAgent);
+    
+    // Try to recover gracefully for certain errors
+    if (error.message.includes('logout') || error.message.includes('redirect')) {
+      console.log('Attempting to recover from logout/redirect error');
+      try {
+        // Clear any problematic state
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        // Redirect to signup page
+        window.location.href = '/signup';
+      } catch (recoveryError) {
+        console.error('Recovery failed:', recoveryError);
+      }
+    }
   }
 
   render() {

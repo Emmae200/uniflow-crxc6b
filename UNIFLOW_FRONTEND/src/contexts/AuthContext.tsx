@@ -14,6 +14,7 @@ interface AuthContextType {
   updateProfile: (data: Partial<User>) => Promise<void>;
   changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
   clearError: () => void;
+  updateUserState: (userData: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -49,7 +50,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     };
 
+    // Listen for storage changes (when tokens are added/removed)
+    const handleStorageChange = () => {
+      if (AuthService.isAuthenticated()) {
+        const currentUser = AuthService.getCurrentUser();
+        if (currentUser) {
+          setUser(currentUser);
+        }
+      } else {
+        setUser(null);
+      }
+    };
+
     initializeAuth();
+    
+    // Add storage event listener
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const register = async (data: RegisterData) => {
@@ -109,9 +130,46 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = () => {
-    AuthService.logout();
-    setUser(null);
-    setError(null);
+    try {
+      console.log('Logout function called');
+      
+      // Check if we're in the middle of OAuth processing
+      const isOAuthProcessing = window.location.search.includes('token') || 
+                               window.location.search.includes('code') ||
+                               window.location.search.includes('state');
+      
+      console.log('Logout called - OAuth processing:', isOAuthProcessing);
+      
+      // Clear authentication state safely
+      try {
+        AuthService.logout();
+        console.log('AuthService.logout() completed');
+      } catch (authError) {
+        console.error('Error in AuthService.logout():', authError);
+      }
+      
+      // Clear context state
+      setUser(null);
+      setError(null);
+      console.log('Context state cleared');
+      
+      // Only redirect to signup (main signin page) if it's not OAuth processing
+      if (!isOAuthProcessing) {
+        console.log('Redirecting to /signup after logout');
+        // Use setTimeout to ensure state updates complete before redirect
+        setTimeout(() => {
+          window.location.href = '/signup';
+        }, 100);
+      } else {
+        console.log('OAuth processing detected, not redirecting');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Even if there's an error, try to redirect
+      setTimeout(() => {
+        window.location.href = '/signup';
+      }, 100);
+    }
   };
 
   const updateProfile = async (data: Partial<User>) => {
@@ -145,6 +203,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setError(null);
   };
 
+  // Manually update user state (for OAuth callbacks)
+  const updateUserState = (userData: User) => {
+    setUser(userData);
+  };
+
   const value: AuthContextType = {
     user,
     loading,
@@ -158,6 +221,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     updateProfile,
     changePassword,
     clearError,
+    updateUserState,
   };
 
   return (

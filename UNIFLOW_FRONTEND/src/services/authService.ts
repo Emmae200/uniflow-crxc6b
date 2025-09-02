@@ -151,6 +151,14 @@ class AuthService {
       throw error;
     }
   }
+
+  // Handle Google OAuth callback with tokens
+  handleGoogleCallback(tokens: { token: string; refreshToken: string; user: User }): void {
+    // Store tokens and user data
+    localStorage.setItem('token', tokens.token);
+    localStorage.setItem('refreshToken', tokens.refreshToken);
+    localStorage.setItem('user', JSON.stringify(tokens.user));
+  }
 }
 
 export default new AuthService();

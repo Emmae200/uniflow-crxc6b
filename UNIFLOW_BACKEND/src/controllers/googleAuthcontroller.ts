@@ -1,6 +1,7 @@
 import { google } from 'googleapis'
 import { User } from '../models/User'
 import { signTokens } from '../utils/jwt'
+import { ensureProfile } from '../controllers/profile'
 import { asyncHandler, ValidationError, AuthenticationError } from '../utils/errorHandler'
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID || ''
@@ -58,12 +59,26 @@ export const handleGoogleCallback = asyncHandler(async (c: any) => {
     })
     await user.save()
     console.log('[Controller] User saved successfully')
+    
+    // Auto-create profile for new Google OAuth users
+    console.log('[Controller] Creating profile for new user:', profile.email)
+    await ensureProfile(user)
+    console.log('[Controller] Profile created successfully')
   } else {
     console.log('[Controller] User found:', user.email)
+    
+    // Ensure profile exists for existing users (in case it was missing)
+    console.log('[Controller] Ensuring profile exists for user:', user.email)
+    await ensureProfile(user)
   }
 
   const { token, refreshToken } = signTokens(user._id.toString())
   console.log('[Controller] JWTs generated for:', user.email)
 
-  return c.json({ token, refreshToken, user })
+  // Redirect to frontend dashboard with tokens
+  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173'
+  const redirectUrl = `${frontendUrl}/home?token=${token}&refreshToken=${refreshToken}&user=${encodeURIComponent(JSON.stringify(user))}`
+  
+  console.log('[Controller] Redirecting to frontend:', redirectUrl)
+  return c.redirect(redirectUrl)
 })
