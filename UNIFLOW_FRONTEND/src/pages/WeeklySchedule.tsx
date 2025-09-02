@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonModal, IonHeader, IonToolbar, IonTitle, IonContent as IonModalContent, IonItem, IonLabel, IonInput, IonButtons, IonButton } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
+import { FiFileText, FiBook, FiHeart, FiCloud, FiEdit, FiBarChart2 } from 'react-icons/fi';
+import GlassIcons from '../components/GlassIcons';
 import './WeeklySchedule.css';
 
 const WeeklySchedule: React.FC = () => {
@@ -94,6 +96,16 @@ const WeeklySchedule: React.FC = () => {
     'Thur': ['MIS', 'MAT', 'ENG', 'HIS', 'BIO', 'TMC'],
     'Fri': ['MAT', 'ENG', 'HIS', 'BIO', 'TMC', 'PHY']
   });
+
+  // GlassIcons items for weekly schedule
+  const glassItems = [
+    { icon: <FiFileText />, color: '#4ECDC4', label: 'Schedule' },
+    { icon: <FiBook />, color: '#45B7D1', label: 'Courses' },
+    { icon: <FiHeart />, color: '#96CEB4', label: 'Health' },
+    { icon: <FiCloud />, color: '#FFEAA7', label: 'Progress' },
+    { icon: <FiEdit />, color: '#DDA0DD', label: 'Edit' },
+    { icon: <FiBarChart2 />, color: '#98D8C8', label: 'Stats' },
+  ];
 
   const handleCellClick = (day: string, timeIndex: number) => {
     if (isEditMode) {
@@ -357,6 +369,11 @@ const WeeklySchedule: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* GlassIcons Background Effect */}
+        <div style={{ height: '600px', position: 'relative', marginTop: '20px' }}>
+          <GlassIcons items={glassItems} className="weekly-schedule-glass"/>
+        </div>
       </IonContent>
     </IonPage>
   );

@@ -473,3 +473,23 @@
   height: 20px;
   object-fit: contain;
 }
+
+/* GlassIcons Custom Styling for Courses */
+.courses-glass .glass-icons-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  margin: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.courses-glass .glass-icon {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.courses-glass .glass-icon:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}

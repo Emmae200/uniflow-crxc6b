@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonButton, IonIcon } from '@ionic/react';
 import { search, add } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
+import { FiFileText, FiBook, FiHeart, FiCloud, FiEdit, FiBarChart2 } from 'react-icons/fi';
+import GlassIcons from '../components/GlassIcons';
 import BottomNavigation from '../components/BottomNavigation';
 import './Courses.css';
 
@@ -96,6 +98,16 @@ const Courses: React.FC = () => {
   
   console.log('Courses component rendered');
   
+  // GlassIcons items for courses page
+  const glassItems = [
+    { icon: <FiFileText />, color: '#0066CC', label: 'Files' },
+    { icon: <FiBook />, color: '#006400', label: 'Books' },
+    { icon: <FiHeart />, color: '#DC143C', label: 'Health' },
+    { icon: <FiCloud />, color: '#8A2BE2', label: 'Progress' },
+    { icon: <FiEdit />, color: '#FF8C00', label: 'Notes' },
+    { icon: <FiBarChart2 />, color: '#4CAF50', label: 'Stats' },
+  ];
+  
   useEffect(() => {
     console.log('Courses component mounted');
     console.log('Current URL:', window.location.href);
@@ -188,6 +200,11 @@ const Courses: React.FC = () => {
 
           {/* Bottom Navigation */}
           <BottomNavigation />
+        </div>
+
+        {/* GlassIcons Background Effect */}
+        <div style={{ height: '600px', position: 'relative', marginTop: '20px' }}>
+          <GlassIcons items={glassItems} className="courses-glass"/>
         </div>
       </IonContent>
     </IonPage>
