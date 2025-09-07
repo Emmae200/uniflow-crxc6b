@@ -3,7 +3,6 @@ import { IonSegment, IonSegmentButton, IonPage } from '@ionic/react';
 import { useParams, useHistory } from 'react-router-dom';
 import Targets from './Targets';
 import Tasks from './Tasks';
-import Progress from './Progress';
 import './CustomPlan.css';
 
 const CustomPlan: React.FC = () => {
@@ -27,9 +26,7 @@ const CustomPlan: React.FC = () => {
     }
   }, [planId]);
 
-  const handleBackClick = () => {
-    history.push('/plans-page');
-  };
+
 
   const handleSegmentChange = (event: CustomEvent) => {
     setSelectedTab(event.detail.value);
@@ -43,11 +40,6 @@ const CustomPlan: React.FC = () => {
         
         {/* Header */}
         <div className="custom-plan-header">
-          <button className="back-button" onClick={handleBackClick}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-            </svg>
-          </button>
           <h1 className="custom-plan-title">{planTitle}</h1>
         </div>
 
@@ -65,9 +57,6 @@ const CustomPlan: React.FC = () => {
             <IonSegmentButton value="tasks">
               <span>Tasks</span>
             </IonSegmentButton>
-            <IonSegmentButton value="progress">
-              <span>Progress</span>
-            </IonSegmentButton>
           </IonSegment>
         </div>
 
@@ -81,11 +70,6 @@ const CustomPlan: React.FC = () => {
           {selectedTab === 'tasks' && (
             <div className="tasks-container">
               <Tasks />
-            </div>
-          )}
-          {selectedTab === 'progress' && (
-            <div className="progress-container">
-              <Progress />
             </div>
           )}
         </div>

@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   // UI Enhancement states
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
-  const [showWelcomeAnimation, setShowWelcomeAnimation] = useState(true);
+
   const [lastRefresh, setLastRefresh] = useState(new Date());
   
   // Calendar states
@@ -167,14 +167,8 @@ const Home: React.FC = () => {
       setCurrentTime(new Date());
     }, 60000);
 
-    // Hide welcome animation after 3 seconds
-    const welcomeTimer = setTimeout(() => {
-      setShowWelcomeAnimation(false);
-    }, 3000);
-
     return () => {
       clearInterval(timeInterval);
-      clearTimeout(welcomeTimer);
     };
   }, []);
 
@@ -306,15 +300,7 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Welcome Animation */}
-        {showWelcomeAnimation && (
-          <div className="welcome-animation">
-            <div className="welcome-content">
-              <h3>Welcome back! 👋</h3>
-              <p>Ready to tackle today's goals?</p>
-            </div>
-          </div>
-        )}
+
 
 
 
@@ -388,7 +374,6 @@ const Home: React.FC = () => {
                 </button>
                 {showCalendarDropdown && (
                   <div className="dropdown-menu">
-                    <button className="dropdown-item" onClick={handleAddEvent}>Add Event</button>
                     <button className="dropdown-item" onClick={handleDeleteEvent}>Delete Event</button>
                   </div>
                 )}
@@ -446,8 +431,8 @@ const Home: React.FC = () => {
                 <div className="course-info">
                   <h3>GEC104</h3>
                   <div className="progress-container">
-                    <div className="progress-bar">
-                      <div className="progress-fill" style={{ width: '33%' }}></div>
+                    <div className="progress-bar study-progress-bar">
+                      <div className="progress-fill study-progress-fill" style={{ width: '33%' }}></div>
                     </div>
                   </div>
                 </div>
@@ -496,8 +481,8 @@ const Home: React.FC = () => {
                   ))}
                 </div>
               )}
-              <button className="add-task-button" onClick={handleAddTask}>+</button>
             </div>
+            <button className="add-task-button" onClick={handleAddTask}>+</button>
           </div>
         </div>
 
@@ -585,13 +570,13 @@ const Home: React.FC = () => {
                  <div className="input-group">
                    <label>Event Title</label>
                    <div className="input-wrapper">
-                     <input
-                       type="text"
+                     <textarea
                        placeholder="What's the event about?"
                        value={eventTitle}
                        onChange={(e) => setEventTitle(e.target.value)}
-                       className="modern-input"
+                       className="modern-textarea"
                        maxLength={100}
+                       rows={3}
                      />
                      <div className="input-counter">
                        {eventTitle.length}/100

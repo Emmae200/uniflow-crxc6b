@@ -76,3 +76,5 @@ const Onboarding2: React.FC = () => {
 };
 
 export default Onboarding2;
+
+

@@ -5,6 +5,8 @@ import './Onboarding.css';
 const Onboarding: React.FC = () => {
   const history = useHistory();
 
+  console.log('Onboarding page rendered!');
+
   const handleNext = () => {
     // Remove focus before navigation to prevent ARIA conflicts
     if (document.activeElement instanceof HTMLElement) {

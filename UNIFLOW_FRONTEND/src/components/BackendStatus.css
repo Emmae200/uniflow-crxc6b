@@ -1,0 +1,34 @@
+.backend-status-card {
+  margin: 16px;
+  max-width: 400px;
+}
+
+.backend-status-card ion-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.backend-status-card ion-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+}
+
+.status-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ion-color-medium);
+}
+
+.backend-status-card ion-icon {
+  font-size: 1.2rem;
+}
+

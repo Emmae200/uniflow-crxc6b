@@ -36,19 +36,7 @@
 .back-button {
   position: absolute;
   left: 20px;
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  color: #2c5f2c;
-}
-
-.back-button {
+  top: 20px;
   background: none;
   border: none;
   padding: 8px;
@@ -639,6 +627,8 @@
   border-radius: 12px;
 }
 
+
+
 .schedule-cell:hover::before {
   opacity: 1;
 }
@@ -649,6 +639,8 @@
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
+
+
 
 .schedule-cell.current-time {
   box-shadow: 0 4px 20px rgba(44, 95, 44, 0.4);

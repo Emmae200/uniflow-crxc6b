@@ -36,7 +36,7 @@
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 100;
   font-style: italic;
-  color: #d1d1d1;
+  color: #ffffff;
   transform: skew(-5deg);
 }
 
@@ -45,7 +45,7 @@
   font-family: 'Pacifico', cursive, serif;
   font-weight: 400;
   font-style: normal;
-  color: #98d8c8;
+  color: #4CAF50;
   transform: skew(-5deg);
   margin-left: -2px;
 }
@@ -61,8 +61,8 @@
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(152, 216, 200, 0.3);
-  border-top: 3px solid #98d8c8;
+  border: 3px solid rgba(76, 175, 80, 0.3);
+  border-top: 3px solid #4CAF50;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

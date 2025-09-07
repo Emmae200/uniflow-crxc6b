@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonButton, IonIcon } from '@ionic/react';
 import { search, add } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
-import { FiFileText, FiBook, FiHeart, FiCloud, FiEdit, FiBarChart2 } from 'react-icons/fi';
-import GlassIcons from '../components/GlassIcons';
+
 import BottomNavigation from '../components/BottomNavigation';
 import './Courses.css';
 
@@ -98,15 +97,7 @@ const Courses: React.FC = () => {
   
   console.log('Courses component rendered');
   
-  // GlassIcons items for courses page
-  const glassItems = [
-    { icon: <FiFileText />, color: '#0066CC', label: 'Files' },
-    { icon: <FiBook />, color: '#006400', label: 'Books' },
-    { icon: <FiHeart />, color: '#DC143C', label: 'Health' },
-    { icon: <FiCloud />, color: '#8A2BE2', label: 'Progress' },
-    { icon: <FiEdit />, color: '#FF8C00', label: 'Notes' },
-    { icon: <FiBarChart2 />, color: '#4CAF50', label: 'Stats' },
-  ];
+
   
   useEffect(() => {
     console.log('Courses component mounted');
@@ -156,6 +147,11 @@ const Courses: React.FC = () => {
           
           {/* Header */}
           <div className="courses-header">
+            <button className="back-button" onClick={() => history.goBack()}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+              </svg>
+            </button>
             <h1 className="courses-title">Courses</h1>
             <div className="header-actions">
               <button className="search-btn" onClick={handleSearch}>
@@ -202,10 +198,7 @@ const Courses: React.FC = () => {
           <BottomNavigation />
         </div>
 
-        {/* GlassIcons Background Effect */}
-        <div style={{ height: '600px', position: 'relative', marginTop: '20px' }}>
-          <GlassIcons items={glassItems} className="courses-glass"/>
-        </div>
+
       </IonContent>
     </IonPage>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { IonIcon, IonPage, IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButtons, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonBackButton } from '@ionic/react';
-import { search, add, close, trash } from 'ionicons/icons';
+import { IonIcon, IonPage, IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButtons, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
+import { search, add, close, trash, arrowBack } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import BottomNavigation from '../components/BottomNavigation';
 import PlanView from '../components/PlanView';
@@ -107,7 +107,7 @@ const Plans: React.FC = () => {
       const newPlan = {
         id: planId,
         title: newPlanName.trim(),
-        icon: '/assets/icons/custom-plan.png',
+        icon: '/assets/icons/clover.png',
         progress: 0,
         pinned: false,
         type: 'custom',
@@ -173,30 +173,32 @@ const Plans: React.FC = () => {
         {/* Status Bar Spacer */}
         <div className="status-bar-spacer"></div>
 
-        {/* Header */}
+        {/* Plan Header */}
         <div className="plans-header">
           <h1 className="plans-title">Plans</h1>
-          <div className="plans-filters">
-            <button 
-              className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-              onClick={() => handleFilterChange('all')}
-            >
-              All plans
-            </button>
-            <button 
-              className={`filter-btn ${activeFilter === 'create' ? 'active' : ''}`}
-              onClick={() => handleFilterChange('create')}
-            >
-              Create +
-            </button>
-            <button 
-              className={`filter-btn ${activeFilter === 'search' ? 'active' : ''}`}
-              onClick={() => handleFilterChange('search')}
-            >
-              <IonIcon icon={search} />
-              Search
-            </button>
-          </div>
+        </div>
+
+        {/* Filter Div */}
+        <div className="plans-filters">
+          <button 
+            className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
+            onClick={() => handleFilterChange('all')}
+          >
+            All plans
+          </button>
+          <button 
+            className={`filter-btn ${activeFilter === 'create' ? 'active' : ''}`}
+            onClick={() => handleFilterChange('create')}
+          >
+            Create +
+          </button>
+          <button 
+            className={`filter-btn ${activeFilter === 'search' ? 'active' : ''}`}
+            onClick={() => handleFilterChange('search')}
+          >
+            <IonIcon icon={search} />
+            Search
+          </button>
         </div>
 
         {/* Plans List */}
@@ -213,11 +215,11 @@ const Plans: React.FC = () => {
                 onMouseUp={handleTouchEnd}
                 onMouseLeave={handleTouchEnd}
               >
-                <div className="plan-icon">
-                  <img src={plan.icon} alt={plan.title} />
-                </div>
+                <img className="plan-icon" src={plan.icon} alt={plan.title} />
                 <div className="plan-content">
-                  <h3 className="plan-title">{plan.title}</h3>
+                  <div className="plan-title-wrapper">
+                    <h3 className="plan-title">{plan.title}</h3>
+                  </div>
                   <div className="plan-progress">
                     <div className="progress-bar">
                       <div 
@@ -300,9 +302,7 @@ const Plans: React.FC = () => {
               
               <div className="plan-preview">
                 <div className="preview-card">
-                  <div className="preview-icon">
-                    <img src="/assets/icons/custom-plan.png" alt="Custom Plan" />
-                  </div>
+                  <img className="preview-icon" src="/assets/icons/clover.png" alt="Custom Plan" />
                   <div className="preview-content">
                     <h4>{newPlanName || 'Your Plan Name'}</h4>
                     <p>Custom Plan • 0% Complete</p>

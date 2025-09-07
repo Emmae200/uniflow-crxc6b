@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonModal, IonHeader, IonToolbar, IonTitle, IonContent as IonModalContent, IonItem, IonLabel, IonInput, IonButtons, IonButton } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
-import { FiFileText, FiBook, FiHeart, FiCloud, FiEdit, FiBarChart2 } from 'react-icons/fi';
-import GlassIcons from '../components/GlassIcons';
+
 import './WeeklySchedule.css';
 
 const WeeklySchedule: React.FC = () => {
@@ -64,18 +63,25 @@ const WeeklySchedule: React.FC = () => {
     setCurrentDay(dayMap[today]);
   };
 
-  const getCourseColor = (courseCode: string) => {
-    const gradients = {
-      'TMC': 'linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%)',
-      'PHY': 'linear-gradient(135deg, #4ECDC4 0%, #6EDDD5 100%)',
-      'FIN': 'linear-gradient(135deg, #45B7D1 0%, #67C9E1 100%)',
-      'MIS': 'linear-gradient(135deg, #96CEB4 0%, #B8DEC4 100%)',
-      'MAT': 'linear-gradient(135deg, #FFEAA7 0%, #FFF2C7 100%)',
-      'ENG': 'linear-gradient(135deg, #DDA0DD 0%, #E5B8E5 100%)',
-      'HIS': 'linear-gradient(135deg, #98D8C8 0%, #BAE8DE 100%)',
-      'BIO': 'linear-gradient(135deg, #F7DC6F 0%, #F9E699 100%)'
-    };
-    return gradients[courseCode as keyof typeof gradients] || 'linear-gradient(135deg, #E0E0E0 0%, #F0F0F0 100%)';
+  const getDiagonalColor = (dayIndex: number, timeIndex: number) => {
+    // Calculate diagonal position (top-left to bottom-right)
+    const diagonalPosition = dayIndex + timeIndex;
+    
+    // Use the original gradient colors from the previous weekly schedule
+    const diagonalGradients = [
+      'linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%)',      // TMC Red
+      'linear-gradient(135deg, #4ECDC4 0%, #6EDDD5 100%)',      // PHY Teal
+      'linear-gradient(135deg, #45B7D1 0%, #67C9E1 100%)',      // FIN Blue
+      'linear-gradient(135deg, #96CEB4 0%, #B8DEC4 100%)',      // MIS Green
+      'linear-gradient(135deg, #FFEAA7 0%, #FFF2C7 100%)',      // MAT Yellow
+      'linear-gradient(135deg, #DDA0DD 0%, #E5B8E5 100%)',      // ENG Purple
+      'linear-gradient(135deg, #98D8C8 0%, #BAE8DE 100%)',      // HIS Mint
+      'linear-gradient(135deg, #F7DC6F 0%, #F9E699 100%)'       // BIO Gold
+    ];
+    
+    // Map diagonal position to gradient colors (cycling through the array)
+    const colorIndex = diagonalPosition % diagonalGradients.length;
+    return diagonalGradients[colorIndex];
   };
 
   const timeSlots = [
@@ -97,15 +103,7 @@ const WeeklySchedule: React.FC = () => {
     'Fri': ['MAT', 'ENG', 'HIS', 'BIO', 'TMC', 'PHY']
   });
 
-  // GlassIcons items for weekly schedule
-  const glassItems = [
-    { icon: <FiFileText />, color: '#4ECDC4', label: 'Schedule' },
-    { icon: <FiBook />, color: '#45B7D1', label: 'Courses' },
-    { icon: <FiHeart />, color: '#96CEB4', label: 'Health' },
-    { icon: <FiCloud />, color: '#FFEAA7', label: 'Progress' },
-    { icon: <FiEdit />, color: '#DDA0DD', label: 'Edit' },
-    { icon: <FiBarChart2 />, color: '#98D8C8', label: 'Stats' },
-  ];
+
 
   const handleCellClick = (day: string, timeIndex: number) => {
     if (isEditMode) {
@@ -168,7 +166,7 @@ const WeeklySchedule: React.FC = () => {
         {/* Header */}
         <div className="weekly-schedule-header">
           <div className="header-left">
-            <button className="back-button" onClick={() => history.push('/home')}>
+            <button className="back-button" onClick={() => history.goBack()}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
               </svg>
@@ -248,7 +246,7 @@ const WeeklySchedule: React.FC = () => {
                       className={`schedule-cell ${isEditMode ? 'editable' : ''} ${isCurrentTime ? 'current-time' : ''} ${isCurrentDay ? 'current-day' : ''}`}
                       onClick={() => handleCellClick(day, timeIndex)}
                       style={{
-                        background: getCourseColor(courseCode),
+                        background: getDiagonalColor(days.indexOf(day), timeIndex),
                         borderLeft: isCurrentTime ? '4px solid #2c5f2c' : undefined,
                         border: selectedView === 'day' && day === currentDay ? '3px solid #2c5f2c' : undefined
                       }}
@@ -330,7 +328,7 @@ const WeeklySchedule: React.FC = () => {
                         className="quick-option"
                         onClick={() => setEditValue(course)}
                         style={{ 
-                          background: getCourseColor(course),
+                          background: getDiagonalColor(0, 0),
                           border: editValue === course ? '3px solid #2c5f2c' : 'none'
                         }}
                       >
@@ -370,10 +368,7 @@ const WeeklySchedule: React.FC = () => {
           </div>
         )}
 
-        {/* GlassIcons Background Effect */}
-        <div style={{ height: '600px', position: 'relative', marginTop: '20px' }}>
-          <GlassIcons items={glassItems} className="weekly-schedule-glass"/>
-        </div>
+
       </IonContent>
     </IonPage>
   );

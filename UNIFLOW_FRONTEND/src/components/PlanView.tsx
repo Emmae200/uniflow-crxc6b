@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
+import { IonPage, IonContent, IonSegment, IonSegmentButton, IonLabel, IonIcon } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
+import { arrowBack } from 'ionicons/icons';
 import Targets from '../pages/Targets';
 import Tasks from '../pages/Tasks';
 import Progress from '../pages/Progress';
@@ -25,20 +26,7 @@ const PlanView: React.FC<PlanViewProps> = ({ plan, onClose }) => {
     setSelectedTab(event.detail.value as 'targets' | 'tasks' | 'progress');
   };
 
-  const handleBackClick = () => {
-    const focusedElement = document.activeElement as HTMLElement;
-    if (focusedElement) {
-      focusedElement.blur();
-    }
-    
-    if (onClose) {
-      // For custom plans, use the onClose function
-      onClose();
-    } else {
-      // For default plans, navigate back to plans page
-      history.push('/plans-page');
-    }
-  };
+
 
 
 
@@ -64,17 +52,10 @@ const PlanView: React.FC<PlanViewProps> = ({ plan, onClose }) => {
           
           {/* Header */}
           <div className="plan-header">
-            <button className="back-button" onClick={handleBackClick}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-              </svg>
+            <button className="back-button" onClick={() => onClose ? onClose() : history.goBack()}>
+              <IonIcon icon={arrowBack} />
             </button>
             <h1 className="plan-title">{plan.title}</h1>
-            <button className="back-button-right" onClick={handleBackClick}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-              </svg>
-            </button>
           </div>
 
           {/* Plan Mini Banner */}

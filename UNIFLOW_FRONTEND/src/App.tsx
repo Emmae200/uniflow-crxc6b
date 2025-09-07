@@ -8,16 +8,17 @@ import Splash from './pages/Splash';
 import Onboarding from './pages/Onboarding';
 import Onboarding2 from './pages/Onboarding2';
 import SignUp from './pages/SignUp';
-import Login from './pages/Login';
 import Register from './pages/Register';
+import Login from './pages/Login';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import NotificationPreferences from './pages/NotificationPreferences';
+import AppPreferences from './pages/AppPreferences';
 import Plans from './pages/Plans';
-import Courses from './pages/Courses';
 import CustomPlan from './pages/CustomPlan';
+import Courses from './pages/Courses';
 import WeeklySchedule from './pages/WeeklySchedule';
-import TodoList from './pages/TodoList';
-
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -52,6 +53,9 @@ import './theme/variables.css';
 /* Global transition styles */
 import './theme/transitions.css';
 
+/* Ionic global styles */
+import './theme/ionic-global.css';
+
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -73,21 +77,41 @@ const App: React.FC = () => (
             <Route exact path="/signup">
               <SignUp />
             </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
             <Route exact path="/register">
               <Register />
             </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
             
-            {/* Protected Routes - Now properly secured */}
-            <ProtectedRoute exact path="/home" component={Home} />
-            <ProtectedRoute exact path="/profile" component={Profile} />
-            <ProtectedRoute exact path="/plans-page" component={Plans} />
-            <ProtectedRoute exact path="/courses" component={Courses} />
-            <ProtectedRoute exact path="/custom-plan-:planId" component={CustomPlan} />
-            <ProtectedRoute exact path="/weekly-schedule" component={WeeklySchedule} />
-            <ProtectedRoute exact path="/todo-list" component={TodoList} />
+            {/* Protected Routes */}
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/profile">
+              <Profile />
+            </Route>
+            <Route exact path="/settings">
+              <Settings />
+            </Route>
+            <Route exact path="/notification-preferences">
+              <NotificationPreferences />
+            </Route>
+            <Route exact path="/app-preferences">
+              <AppPreferences />
+            </Route>
+            <Route exact path="/plans-page">
+              <Plans />
+            </Route>
+            <Route exact path="/custom-plan-:planId">
+              <CustomPlan />
+            </Route>
+            <Route exact path="/courses">
+              <Courses />
+            </Route>
+            <Route exact path="/weekly-schedule">
+              <WeeklySchedule />
+            </Route>
             
             {/* Default redirect */}
             <Route exact path="/">

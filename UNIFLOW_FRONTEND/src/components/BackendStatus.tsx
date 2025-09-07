@@ -1,135 +1,76 @@
 import React, { useState, useEffect } from 'react';
-import apiService from '../services/apiService';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonChip } from '@ionic/react';
+import { checkmarkCircle, closeCircle, time } from 'ionicons/icons';
+import './BackendStatus.css';
 
-interface BackendStatusProps {
-  onStatusChange?: (status: 'connected' | 'disconnected' | 'checking') => void;
-}
-
-const BackendStatus: React.FC<BackendStatusProps> = ({ onStatusChange }) => {
-  const [status, setStatus] = useState<'connected' | 'disconnected' | 'checking'>('checking');
-  const [healthData, setHealthData] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
+const BackendStatus: React.FC = () => {
+  const [status, setStatus] = useState<'online' | 'offline' | 'checking'>('checking');
+  const [lastChecked, setLastChecked] = useState<Date>(new Date());
 
   useEffect(() => {
+    const checkBackendStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/health');
+        if (response.ok) {
+          setStatus('online');
+        } else {
+          setStatus('offline');
+        }
+      } catch (error) {
+        setStatus('offline');
+      }
+      setLastChecked(new Date());
+    };
+
     checkBackendStatus();
+    const interval = setInterval(checkBackendStatus, 30000); // Check every 30 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
-  const checkBackendStatus = async () => {
-    try {
-      setStatus('checking');
-      setError(null);
-      
-      const health = await apiService.healthCheck();
-      setHealthData(health);
-      setStatus('connected');
-      onStatusChange?.('connected');
-    } catch (err: any) {
-      setError(err.message);
-      setStatus('disconnected');
-      onStatusChange?.('disconnected');
+  const getStatusIcon = () => {
+    switch (status) {
+      case 'online':
+        return <IonIcon icon={checkmarkCircle} color="success" />;
+      case 'offline':
+        return <IonIcon icon={closeCircle} color="danger" />;
+      case 'checking':
+        return <IonIcon icon={time} color="warning" />;
+      default:
+        return <IonIcon icon={time} color="medium" />;
     }
   };
 
-  const testDatabase = async () => {
-    try {
-      const dbTest = await apiService.testDatabase();
-      console.log('Database test result:', dbTest);
-      alert('Database connection successful!');
-    } catch (err: any) {
-      console.error('Database test failed:', err);
-      alert(`Database test failed: ${err.message}`);
+  const getStatusColor = () => {
+    switch (status) {
+      case 'online':
+        return 'success';
+      case 'offline':
+        return 'danger';
+      case 'checking':
+        return 'warning';
+      default:
+        return 'medium';
     }
   };
 
   return (
-    <div className="backend-status">
-      <div className="status-indicator">
-        <div className={`status-dot ${status}`}></div>
-        <span className="status-text">
-          Backend: {status === 'connected' ? 'Connected' : status === 'disconnected' ? 'Disconnected' : 'Checking...'}
-        </span>
-      </div>
-      
-      {status === 'connected' && healthData && (
-        <div className="health-info">
-          <p>Status: {healthData.status}</p>
-          <p>Database: {healthData.database}</p>
-          <p>Users: {healthData.userCount}</p>
-          <button onClick={testDatabase} className="test-db-btn">
-            Test Database
-          </button>
+    <IonCard className="backend-status-card">
+      <IonCardHeader>
+        <IonCardTitle>
+          Backend Status
+          {getStatusIcon()}
+        </IonCardTitle>
+      </IonCardHeader>
+      <IonCardContent>
+        <div className="status-info">
+          <IonChip color={getStatusColor()}>
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </IonChip>
+          <p>Last checked: {lastChecked.toLocaleTimeString()}</p>
         </div>
-      )}
-      
-      {error && (
-        <div className="error-info">
-          <p>Error: {error}</p>
-          <button onClick={checkBackendStatus} className="retry-btn">
-            Retry Connection
-          </button>
-        </div>
-      )}
-      
-      <style>{`
-        .backend-status {
-          padding: 16px;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          margin: 16px 0;
-          background: #f9f9f9;
-        }
-        
-        .status-indicator {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          margin-bottom: 12px;
-        }
-        
-        .status-dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-        }
-        
-        .status-dot.connected {
-          background: #4caf50;
-        }
-        
-        .status-dot.disconnected {
-          background: #f44336;
-        }
-        
-        .status-dot.checking {
-          background: #ff9800;
-          animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-          0% { opacity: 1; }
-          50% { opacity: 0.5; }
-          100% { opacity: 1; }
-        }
-        
-        .health-info, .error-info {
-          font-size: 14px;
-        }
-        
-        .test-db-btn, .retry-btn {
-          background: #447055;
-          color: white;
-          border: none;
-          padding: 8px 16px;
-          border-radius: 4px;
-          cursor: pointer;
-          margin-top: 8px;
-        }
-        
-        .test-db-btn:hover, .retry-btn:hover {
-          background: #335544;
-        }
-      `}</style>
-    </div>
+      </IonCardContent>
+    </IonCard>
   );
 };
 

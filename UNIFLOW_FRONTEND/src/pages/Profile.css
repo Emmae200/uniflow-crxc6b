@@ -9,47 +9,54 @@
 }
 
 /* Status Bar Spacer - Profile Page Specific */
-.profile-screen .status-bar-spacer {
-  height: var(--ion-safe-area-top, 44px);
-  background: #E7E8E3;
-  min-height: 44px;
-  width: 100%;
+.profile-screen .status-bar-spacer,
+ion-content.profile-screen .status-bar-spacer,
+.profile-screen div.status-bar-spacer {
+  height: 60px !important; /* Space for device status bar */
+  width: 100% !important;
+  background: #E7E8E3 !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
 }
 
 
 
 /* Profile Header */
 .profile-header {
+  padding: 20px 20px 20px 20px;
+  background: #E7E8E3;
+  position: relative;
+  z-index: 10;
+  min-height: 60px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 16px 20px 24px 20px;
 }
 
-.back-button,
-.settings-button {
+.back-button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 2px;
   border-radius: 50%;
   transition: background-color 0.2s ease;
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 20;
+  margin: 0 !important;
+  box-sizing: border-box;
 }
 
-.back-button img,
-.settings-button img {
-  width: 20px;
-  height: 20px;
-  filter: brightness(0) saturate(100%);
+.back-button img {
+  width: 12px;
+  height: 12px;
+  filter: brightness(0) saturate(100%) hue-rotate(120deg) saturate(150%);
 }
 
-.back-button:hover,
-.settings-button:hover {
+.back-button:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -58,32 +65,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 20px 40px 20px;
+  padding: 0 20px 20px 20px;
   text-align: center;
 }
 
 .profile-picture-container {
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .profile-picture {
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #e0f2e0 0%, #c0e1cb 100%);
+  background-color: #E7E8E3;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   border: 3px solid #2c5f2c;
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.2));
 }
 
 .profile-avatar-img {
-  width: 60px;
-  height: 60px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .edit-profile-btn {
@@ -92,31 +100,33 @@
   right: 8px;
   width: 32px;
   height: 32px;
-  background: #90EE90;
-  border: none;
-  border-radius: 50%;
   cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: all 0.2s ease;
 }
 
-.edit-profile-btn img {
-  width: 16px;
-  height: 16px;
-  filter: brightness(0) saturate(100%) invert(1);
+.edit-profile-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.edit-profile-btn svg path {
+  stroke: #2c5f2c;
+  stroke-width: 1.5;
 }
 
 .edit-profile-btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .profile-name {
-  margin: 0 0 8px 0;
-  font-size: 24px;
+  margin: 0 0 4px 0;
+  font-size: 20px;
   font-weight: 700;
   color: #000;
   letter-spacing: -0.5px;
@@ -124,24 +134,24 @@
 
 .profile-institution {
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
   font-weight: 400;
 }
 
 /* Profile Form */
 .profile-form {
-  padding: 0 20px 40px 20px;
+  padding: 0 20px 20px 20px;
 }
 
 .form-group {
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 8px;
-  font-size: 16px;
+  margin-bottom: 4px;
+  font-size: 14px;
   font-weight: 600;
   color: #000;
 }
@@ -175,8 +185,8 @@
   flex: 1;
   border: none;
   background: transparent;
-  padding: 16px 0;
-  font-size: 16px;
+  padding: 12px 0;
+  font-size: 14px;
   color: #000;
   outline: none;
   font-family: 'Roboto', sans-serif;
@@ -208,19 +218,81 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Logout Section */
-.logout-section {
-  padding: 0 20px 40px 20px;
+.edit-field-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 0;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 8px;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.edit-field-btn svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  background: transparent;
+}
+
+.edit-field-btn svg path {
+  stroke: #2c5f2c;
+  stroke-width: 1.5;
+}
+
+.edit-field-btn:hover {
+  background: none;
+}
+
+.save-field-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 0;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 8px;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.save-field-btn svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  background: transparent;
+}
+
+.save-field-btn svg path {
+  stroke: #4CAF50;
+  stroke-width: 2;
+}
+
+.save-field-btn:hover {
+  background: none;
+}
+
+/* Update Section */
+.update-section {
+  padding: 0 20px 10px 20px;
   display: flex;
   justify-content: center;
 }
 
-.logout-button {
+.update-button {
   background: transparent;
   color: #46B46B;
   border: 2px solid #46B46B;
   border-radius: 12px;
-  padding: 16px 48px;
+  padding: 12px 40px;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
@@ -229,14 +301,14 @@
   min-width: 200px;
 }
 
-.logout-button:hover {
+.update-button:hover {
   background: #46B46B;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(70, 180, 107, 0.3);
 }
 
-.logout-button:active {
+.update-button:active {
   transform: translateY(0);
 }
 
@@ -251,12 +323,19 @@
   }
   
   .profile-section {
-    padding: 0 16px 32px 16px;
+    padding: 0 16px 16px 16px;
   }
   
   .profile-picture {
     width: 100px;
     height: 100px;
+  }
+  
+  .profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
   }
   
   .monster-avatar {
@@ -266,7 +345,11 @@
   .edit-profile-btn {
     width: 28px;
     height: 28px;
-    font-size: 12px;
+  }
+  
+  .edit-profile-btn svg {
+    width: 20px;
+    height: 20px;
   }
   
   .profile-name {
@@ -298,11 +381,11 @@
     font-size: 14px;
   }
   
-  .logout-section {
-    padding: 0 16px 32px 16px;
+  .update-section {
+    padding: 0 16px 10px 16px;
   }
   
-  .logout-button {
+  .update-button {
     padding: 14px 40px;
     font-size: 14px;
     min-width: 180px;
@@ -311,10 +394,11 @@
 
 /* Focus states for accessibility */
 .back-button:focus,
-.settings-button:focus,
 .edit-profile-btn:focus,
 .visibility-toggle:focus,
-.logout-button:focus {
+.edit-field-btn:focus,
+.save-field-btn:focus,
+.update-button:focus {
   outline: 2px solid #2c5f2c;
   outline-offset: 2px;
 }
@@ -323,6 +407,8 @@
 .profile-picture,
 .edit-profile-btn,
 .input-field,
-.logout-button {
+.edit-field-btn,
+.save-field-btn,
+.update-button {
   transition: all 0.3s ease;
 }

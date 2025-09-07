@@ -7,9 +7,22 @@ const Splash: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
+    console.log('Splash useEffect triggered, setting timer...');
     const timer = setTimeout(() => {
-      history.push('/onboarding');
+      console.log('Timer completed, navigating to onboarding...');
+      try {
+        history.push('/onboarding');
+      } catch (error) {
+        console.error('Navigation error:', error);
+        // Fallback: try window.location
+        window.location.href = '/onboarding';
+      }
     }, 3000);
+
+    return () => {
+      console.log('Cleaning up timer...');
+      clearTimeout(timer);
+    };
 
     return () => clearTimeout(timer);
   }, [history]);
