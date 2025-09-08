@@ -2,6 +2,8 @@
 
 A comprehensive student productivity and planning application with both frontend and backend components.
 
+<!-- Version 2.0.1 deployment trigger -->
+
 ## Project Structure
 
 ```
