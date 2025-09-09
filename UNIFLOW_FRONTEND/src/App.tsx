@@ -20,6 +20,7 @@ import CustomPlan from './pages/CustomPlan';
 import Courses from './pages/Courses';
 import WeeklySchedule from './pages/WeeklySchedule';
 import Jotting from './pages/Jotting';
+import SchoolConnection from './pages/SchoolConnection';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -115,6 +116,9 @@ const App: React.FC = () => (
             </Route>
             <Route exact path="/jotting">
               <Jotting />
+            </Route>
+            <Route exact path="/school-connection">
+              <SchoolConnection />
             </Route>
             
             {/* Default redirect */}

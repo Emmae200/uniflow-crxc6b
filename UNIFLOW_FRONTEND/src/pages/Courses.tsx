@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonButton, IonIcon } from '@ionic/react';
 import { search, add } from 'ionicons/icons';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import BottomNavigation from '../components/BottomNavigation';
 import './Courses.css';
@@ -18,10 +18,23 @@ interface Course {
 
 const Courses: React.FC = () => {
   const history = useHistory();
+  const location = useLocation();
   
   // State to track if school is linked
   const [isSchoolLinked, setIsSchoolLinked] = useState(false);
   const [courses, setCourses] = useState<Course[]>([]);
+
+  // Check for connection success from URL parameters
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    if (urlParams.get('connected') === 'true') {
+      // Simulate successful connection
+      setIsSchoolLinked(true);
+      setCourses(sampleCourses);
+      // Clear the URL parameter
+      history.replace('/courses');
+    }
+  }, [location.search, history]);
   
   // Sample courses data for when school is linked
   const sampleCourses: Course[] = [
@@ -143,11 +156,9 @@ const Courses: React.FC = () => {
   };
 
   const handleLinkSchool = () => {
-    // This would open a modal or navigate to a link page
-    // For now, we'll simulate linking by setting the state
+    // Navigate to the school connection page
     console.log('Link school clicked');
-    setIsSchoolLinked(true);
-    setCourses(sampleCourses);
+    history.push('/school-connection');
   };
 
   return (
