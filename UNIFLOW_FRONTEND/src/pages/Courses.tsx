@@ -19,8 +19,12 @@ interface Course {
 const Courses: React.FC = () => {
   const history = useHistory();
   
-  // ✅ Move useState BEFORE useEffect
-  const [courses] = useState<Course[]>([
+  // State to track if school is linked
+  const [isSchoolLinked, setIsSchoolLinked] = useState(false);
+  const [courses, setCourses] = useState<Course[]>([]);
+  
+  // Sample courses data for when school is linked
+  const sampleCourses: Course[] = [
     {
       id: '1',
       code: 'TMC 101',
@@ -93,7 +97,7 @@ const Courses: React.FC = () => {
       iconColor: '#8A2BE2',
       fileIcon: '/assets/icons/purple_file.png'
     }
-  ]);
+  ];
   
   console.log('Courses component rendered');
   
@@ -121,9 +125,9 @@ const Courses: React.FC = () => {
   }, [courses]);
 
   const handleAddCourse = () => {
-    // Navigate to plans page to add a new course/plan
-    console.log('Add course clicked - THIS SHOULD NOT HAPPEN WHEN CLICKING COURSES NAV');
-    history.push('/plans-page');
+    // Navigate to jotting page when green add button is clicked
+    console.log('Add course clicked - navigating to jotting page');
+    history.push('/jotting');
   };
 
   const handleSearch = () => {
@@ -136,6 +140,14 @@ const Courses: React.FC = () => {
     // Course cards are now non-clickable
     console.log('Course clicked:', courseId);
     // No navigation - cards are just for display
+  };
+
+  const handleLinkSchool = () => {
+    // This would open a modal or navigate to a link page
+    // For now, we'll simulate linking by setting the state
+    console.log('Link school clicked');
+    setIsSchoolLinked(true);
+    setCourses(sampleCourses);
   };
 
   return (
@@ -152,47 +164,66 @@ const Courses: React.FC = () => {
                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
               </svg>
             </button>
-            <h1 className="courses-title">Courses</h1>
+            <div className="header-content">
+              <h1 className="courses-title">Courses</h1>
+            </div>
             <div className="header-actions">
               <button className="search-btn" onClick={handleSearch}>
                 <img src="/assets/icons/icons2/search_icon.svg" alt="Search" />
               </button>
-              <button className="add-course-btn" onClick={handleAddCourse}>
-                <img src="/assets/icons/icons2/299068_add_sign_icon.svg" alt="Add Course" />
+              <button className="jotting-label-right" onClick={handleAddCourse}>
+                + Jotting
               </button>
             </div>
           </div>
 
-                     {/* Course Cards */}
-           <div className="courses-container">
-             {courses.map((course) => (
-               <div 
-                 key={course.id} 
-                 className="course-card"
-                 style={{ background: course.color }}
-                 onClick={() => handleCourseClick(course.id)}
-               >
-                 <div className="course-content">
-                   <div className="course-info">
-                     <h2 className="course-code">{course.code}</h2>
-                     <p className="course-week">Week {course.week}</p>
-                     <p className="course-last-opened">Last opened {course.lastOpened}</p>
-                   </div>
-                   <div className="course-icon">
-                     <img 
-                       src={course.fileIcon} 
-                       alt="Course File" 
-                       width="40" 
-                       height="40"
-                       style={{ objectFit: 'contain' }}
-                     />
-                   </div>
-                 </div>
-               </div>
-             ))}
-             {/* Invisible spacer card for better scrolling */}
-             <div className="course-card-spacer"></div>
-           </div>
+          {/* Main Content */}
+          {!isSchoolLinked ? (
+            /* Blank State - School Not Linked */
+            <div className="courses-blank-state">
+              <div className="blank-state-content">
+                <p className="blank-state-text">
+                  To access your courses, please link UniFlow with your school's e-learning site. 
+                  Tap 'Link' to enter your school's URL and connect your account. 
+                  Once linked, your courses will appear here automatically.
+                </p>
+                <button className="link-school-btn" onClick={handleLinkSchool}>
+                  Link
+                </button>
+              </div>
+            </div>
+          ) : (
+            /* Dynamic State - School Linked, Show Courses */
+            <div className="courses-container">
+              {courses.map((course) => (
+                <div 
+                  key={course.id} 
+                  className="course-card"
+                  style={{ background: course.color }}
+                  onClick={() => handleCourseClick(course.id)}
+                >
+                  <div className="course-content">
+                    <div className="course-info">
+                      <h2 className="course-code">{course.code}</h2>
+                      <p className="course-week">Week {course.week}</p>
+                      <p className="course-last-opened">Last opened {course.lastOpened}</p>
+                    </div>
+                    <div className="course-icon">
+                      <img 
+                        src={course.fileIcon} 
+                        alt="Course File" 
+                        width="40" 
+                        height="40"
+                        style={{ objectFit: 'contain' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {/* Invisible spacer card for better scrolling */}
+              <div className="course-card-spacer"></div>
+            </div>
+          )}
 
           {/* Bottom Navigation */}
           <BottomNavigation />

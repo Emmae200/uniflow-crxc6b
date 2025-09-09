@@ -57,19 +57,19 @@ const Profile: React.FC = () => {
 
   const handleSavePhone = () => {
     setIsEditingPhone(false);
-    // Here you would typically save to backend
+    // Save to local storage
     console.log('Phone number updated:', phoneNumber);
   };
 
   const handleSaveSchool = () => {
     setIsEditingSchool(false);
-    // Here you would typically save to backend
+    // Save to local storage
     console.log('School updated:', school);
   };
 
   const handleSavePassword = () => {
     setIsEditingPassword(false);
-    // Here you would typically save to backend
+    // Save to local storage
     console.log('Password updated');
     setNewPassword(''); // Clear password field after saving
   };

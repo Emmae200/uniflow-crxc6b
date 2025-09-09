@@ -16,6 +16,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+
 .nav-item {
   display: flex;
   flex-direction: column;
@@ -85,20 +86,34 @@
 }
 
 .nav-item.central {
-  transform: translateY(-8px);
+  transform: translateY(-20px);
+  position: relative;
 }
 
 .nav-item.central .nav-icon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #447055 0%, #32cd32 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 20px;
-  box-shadow: 0 4px 12px rgba(68, 112, 85, 0.3);
+  width: 48px !important;
+  height: 48px !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: white !important;
+  font-size: 24px !important;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  position: relative !important;
+  z-index: 2 !important;
+  animation: float 3s ease-in-out infinite !important;
+  border: none !important;
+}
+
+.nav-item.central .nav-icon img {
+  width: 36px !important;
+  height: 36px !important;
+  z-index: 1 !important;
+  position: relative !important;
 }
 
 @keyframes fadeInUp {
@@ -109,6 +124,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
   }
 }
 
@@ -123,6 +147,11 @@
     height: 40px;
     font-size: 18px;
   }
+  
+  .nav-item.central .nav-icon img {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -133,7 +162,12 @@
   .nav-item.central .nav-icon {
     width: 56px;
     height: 56px;
-    font-size: 24px;
+    font-size: 26px;
+  }
+  
+  .nav-item.central .nav-icon img {
+    width: 42px;
+    height: 42px;
   }
 }
 

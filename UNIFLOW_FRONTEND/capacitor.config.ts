@@ -15,8 +15,8 @@ const config: CapacitorConfig = {
       spinnerColor: "#4CAF50"
     },
     StatusBar: {
-      style: 'dark',
-      backgroundColor: '#447055'
+      style: 'light',
+      backgroundColor: '#ffffff'
     }
   }
 };

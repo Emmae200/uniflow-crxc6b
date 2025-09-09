@@ -1,5 +1,22 @@
 /* Ionic Global Styles */
 
+/* Status Bar Configuration */
+:root {
+  --ion-statusbar-padding: env(safe-area-inset-top);
+}
+
+/* Force white status bar background */
+ion-app {
+  --background: #ffffff;
+}
+
+/* Status bar area styling - apply white background to specific pages */
+.jotting-screen .status-bar-spacer,
+.dashboard-screen .status-bar-spacer,
+.home-screen .status-bar-spacer {
+  background: #ffffff !important;
+}
+
 /* Custom Ionic component overrides */
 ion-header {
   --background: var(--ion-color-primary);
@@ -13,6 +30,12 @@ ion-toolbar {
 
 ion-content {
   --background: var(--ion-color-light);
+}
+
+/* Splash screen specific override */
+.splash-screen ion-content {
+  --background: #447055 !important;
+  background: #447055 !important;
 }
 
 ion-card {

@@ -1,7 +1,7 @@
 /* Dashboard Screen */
 .dashboard-screen {
-  --background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  --background: #ffffff !important;
+  background: #ffffff !important;
   font-family: 'Roboto', sans-serif;
   padding: 0;
   margin: 0;
@@ -12,6 +12,12 @@
   position: relative;
 }
 
+/* Override IonContent background */
+.dashboard-screen ion-content {
+  --background: #ffffff !important;
+  background: #ffffff !important;
+}
+
 .dashboard-screen::before {
   content: '';
   position: fixed;
@@ -19,17 +25,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 80%, rgba(192, 225, 203, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(68, 112, 85, 0.1) 0%, transparent 50%);
+  background: #ffffff !important;
   pointer-events: none;
   z-index: -1;
 }
 
 /* Status Bar Spacer - Home Page Specific */
-.home-screen .status-bar-spacer {
+.home-screen .status-bar-spacer,
+.dashboard-screen .status-bar-spacer {
   height: 60px;
   width: 100%;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #ffffff !important;
 }
 
 /* Dashboard Header - COMPLETELY REBUILT */
@@ -457,16 +463,17 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: 1px solid #e0e0e0;
-  min-width: 120px;
+  min-width: 160px;
   z-index: 1000;
   overflow: hidden;
   margin-top: 4px;
 }
 
 .dropdown-item {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 16px;
   border: none;
   background: none;
   text-align: left;
@@ -474,14 +481,15 @@
   color: #2c5f2c;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .dropdown-item:hover {
   background-color: #f5f5f5;
 }
 
-.dropdown-item:first-child {
-  border-bottom: 1px solid #e0e0e0;
+.dropdown-item:last-child {
+  border-bottom: none;
 }
 
 .section-content {
@@ -548,31 +556,51 @@
   font-weight: 500;
 }
 
-/* Study Tracker Progress Bar - Maximum Specificity Override */
+/* Study Tracker Progress Bar - Match Plan Card Styling */
+.dashboard-screen .section-card.study-tracker-section .study-progress .progress-container .progress-bar.study-progress-bar,
+.dashboard-screen .section-card.study-tracker-section .study-progress .progress-container .study-progress-bar,
+.section-card.study-tracker-section .study-progress .progress-container .progress-bar.study-progress-bar,
 .section-card.study-tracker-section .study-progress .progress-container .study-progress-bar {
   width: 100% !important;
-  height: 8px !important;
-  background: rgba(255, 255, 255, 0.2) !important;
-  border-radius: 4px !important;
+  height: 12px !important;
+  background: #e0e0e0 !important;
+  border-radius: 8px !important;
   overflow: hidden !important;
   position: relative !important;
-  box-shadow: none !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1) !important;
   border: none !important;
 }
 
+.dashboard-screen .section-card.study-tracker-section .study-progress .progress-container .progress-bar.study-progress-bar .progress-fill.study-progress-fill,
+.dashboard-screen .section-card.study-tracker-section .study-progress .progress-container .study-progress-bar .study-progress-fill,
+.section-card.study-tracker-section .study-progress .progress-container .progress-bar.study-progress-bar .progress-fill.study-progress-fill,
 .section-card.study-tracker-section .study-progress .progress-container .study-progress-bar .study-progress-fill {
   height: 100% !important;
-  background: linear-gradient(90deg, #90ee90 0%, #32cd32 100%) !important;
-  border-radius: 4px !important;
-  transition: width 0.3s ease !important;
+  background: #A6FAC2 !important;
+  border-radius: 8px !important;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
   position: relative !important;
-  box-shadow: none !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(166, 250, 194, 0.3) !important;
 }
 
+.dashboard-screen .section-card.study-tracker-section .study-progress .progress-container .progress-bar.study-progress-bar .progress-fill.study-progress-fill::before,
+.dashboard-screen .section-card.study-tracker-section .study-progress .progress-container .study-progress-bar .study-progress-fill::before,
+.section-card.study-tracker-section .study-progress .progress-container .progress-bar.study-progress-bar .progress-fill.study-progress-fill::before,
 .section-card.study-tracker-section .study-progress .progress-container .study-progress-bar .study-progress-fill::before {
-  display: none !important;
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+  animation: shimmer 2s infinite !important;
 }
 
+.dashboard-screen .section-card.study-tracker-section .study-progress .progress-container .progress-bar.study-progress-bar .progress-fill.study-progress-fill::after,
+.dashboard-screen .section-card.study-tracker-section .study-progress .progress-container .study-progress-bar .study-progress-fill::after,
+.section-card.study-tracker-section .study-progress .progress-container .progress-bar.study-progress-bar .progress-fill.study-progress-fill::after,
 .section-card.study-tracker-section .study-progress .progress-container .study-progress-bar .study-progress-fill::after {
   content: '' !important;
   position: absolute !important;
@@ -580,13 +608,25 @@
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%) !important;
-  animation: shimmer 2s infinite !important;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0.1) 100%) !important;
+  animation: pulse 3s ease-in-out infinite !important;
 }
 
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .resume-button {
@@ -1214,7 +1254,7 @@
 /* Bottom Spacer */
 .bottom-spacer {
   height: 100px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #ffffff !important;
   width: 100%;
 }
 

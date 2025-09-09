@@ -93,6 +93,45 @@ const Home: React.FC = () => {
     setShowAllEventsPopup(false);
   };
 
+  const handleClearAllEvents = () => {
+    setShowCalendarDropdown(false);
+    if (events.length === 0) {
+      alert('No events to clear');
+      return;
+    }
+    if (window.confirm('Are you sure you want to clear all events? This action cannot be undone.')) {
+      setEvents([]);
+      alert('All events have been cleared');
+    }
+  };
+
+  const handleExportCalendar = () => {
+    setShowCalendarDropdown(false);
+    if (events.length === 0) {
+      alert('No events to export');
+      return;
+    }
+    
+    // Create CSV content
+    const csvContent = [
+      'Title,Date,Time,Priority',
+      ...events.map(event => `"${event.title}","${event.date}","${event.time}","${event.priority}"`)
+    ].join('\n');
+    
+    // Create and download file
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `calendar-events-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+    
+    alert('Calendar exported successfully!');
+  };
+
   // Sort events by date and get the closest 2
   const sortedEvents = [...events].sort((a, b) => {
     const dateA = new Date(a.date);
@@ -374,7 +413,30 @@ const Home: React.FC = () => {
                 </button>
                 {showCalendarDropdown && (
                   <div className="dropdown-menu">
-                    <button className="dropdown-item" onClick={handleDeleteEvent}>Delete Event</button>
+                    <button className="dropdown-item" onClick={handleAddEvent}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: '8px' }}>
+                        <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                      </svg>
+                      Add Event
+                    </button>
+                    <button className="dropdown-item" onClick={handleShowAllEvents}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: '8px' }}>
+                        <path d="M19,3H18V1H16V3H8V1H6V3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z"/>
+                      </svg>
+                      View All Events
+                    </button>
+                    <button className="dropdown-item" onClick={handleClearAllEvents}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: '8px' }}>
+                        <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                      </svg>
+                      Clear All Events
+                    </button>
+                    <button className="dropdown-item" onClick={handleExportCalendar}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: '8px' }}>
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                      </svg>
+                      Export Calendar
+                    </button>
                   </div>
                 )}
               </div>
@@ -431,8 +493,32 @@ const Home: React.FC = () => {
                 <div className="course-info">
                   <h3>GEC104</h3>
                   <div className="progress-container">
-                    <div className="progress-bar study-progress-bar">
-                      <div className="progress-fill study-progress-fill" style={{ width: '33%' }}></div>
+                    <div 
+                      className="progress-bar study-progress-bar" 
+                      style={{
+                        width: '100%',
+                        height: '12px',
+                        background: '#e0e0e0',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        position: 'relative',
+                        boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.1)',
+                        border: 'none'
+                      }}
+                    >
+                      <div 
+                        className="progress-fill study-progress-fill" 
+                        style={{ 
+                          width: '33%',
+                          height: '100%',
+                          background: '#A6FAC2',
+                          borderRadius: '8px',
+                          transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+                          position: 'relative',
+                          overflow: 'hidden',
+                          boxShadow: '0 2px 8px rgba(166, 250, 194, 0.3)'
+                        }}
+                      ></div>
                     </div>
                   </div>
                 </div>
