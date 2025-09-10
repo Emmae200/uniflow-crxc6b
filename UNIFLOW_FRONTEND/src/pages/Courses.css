@@ -44,6 +44,15 @@
   position: relative;
 }
 
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  margin: 0 20px;
+}
+
+
 .courses-title {
   color: #2c5f2c;
   font-size: 28px;
@@ -56,6 +65,29 @@
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+.jotting-label-right {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #2c5f2c;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.jotting-label-right:hover {
+  background: rgba(44, 95, 44, 0.1);
+  transform: translateY(-1px);
+}
+
+.jotting-label-right:active {
+  transform: translateY(0);
+  background: rgba(44, 95, 44, 0.15);
 }
 
 .search-btn {
@@ -83,33 +115,6 @@
   filter: brightness(0) saturate(100%);
 }
 
-.add-course-btn {
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-}
-
-.add-course-btn:hover {
-  background: rgba(68, 112, 85, 0.1);
-  border-radius: 8px;
-  transform: translateY(-1px);
-}
-
-.add-course-btn:active {
-  transform: translateY(0);
-}
-
-.add-course-btn img {
-  width: 20px;
-  height: 20px;
-}
 
 /* Back Button Styles */
 .back-button {
@@ -503,6 +508,52 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
+}
+
+/* Blank State Styling */
+.courses-blank-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: calc(100vh - 200px);
+}
+
+.blank-state-content {
+  text-align: center;
+  max-width: 320px;
+}
+
+.blank-state-text {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 32px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.link-school-btn {
+  background: #2c5f2c;
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+}
+
+.link-school-btn:hover {
+  background: #1e3f1e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(44, 95, 44, 0.3);
+}
+
+.link-school-btn:active {
+  transform: translateY(0);
 }
 
 

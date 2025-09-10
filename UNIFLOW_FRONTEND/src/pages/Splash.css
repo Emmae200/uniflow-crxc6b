@@ -1,12 +1,29 @@
 /* Splash Screen Container */
 .splash-screen {
-  --background: #447055;
-  background: #447055;
+  --background: #447055 !important;
+  background: #447055 !important;
   position: relative;
   height: 100vh;
   width: 100vw;
   padding: 0;
   margin: 0;
+}
+
+/* Force background on IonContent */
+.splash-screen ion-content {
+  --background: #447055 !important;
+  background: #447055 !important;
+}
+
+/* Force background on IonPage */
+.splash-screen ion-page {
+  --background: #447055 !important;
+  background: #447055 !important;
+}
+
+/* Force body background when splash is active */
+body:has(.splash-screen) {
+  background: #447055 !important;
 }
 
 /* Logo Container */

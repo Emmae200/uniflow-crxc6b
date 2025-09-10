@@ -1,6 +1,22 @@
-import { Capacitor } from '@capacitor/core';
-import { Haptics, ImpactStyle } from '@capacitor/haptics';
-import { Keyboard } from '@capacitor/keyboard';
+// Web-compatible versions of Capacitor imports
+// For web deployment, we'll use mock implementations
+const Capacitor = {
+  isNativePlatform: () => false,
+  getPlatform: () => 'web'
+};
+
+const Haptics = {
+  impact: async () => {}
+};
+
+const ImpactStyle = {
+  Light: 'light'
+};
+
+const Keyboard = {
+  show: async () => {},
+  hide: async () => {}
+};
 
 /**
  * Check if the app is running on a native platform
@@ -12,10 +28,10 @@ export const isNativePlatform = (): boolean => {
 /**
  * Trigger haptic feedback
  */
-export const triggerHaptic = async (style: ImpactStyle = ImpactStyle.Light): Promise<void> => {
+export const triggerHaptic = async (style: string = 'light'): Promise<void> => {
   if (isNativePlatform()) {
     try {
-      await Haptics.impact({ style });
+      await Haptics.impact();
     } catch (error) {
       console.warn('Haptic feedback not available:', error);
     }

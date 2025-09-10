@@ -1,0 +1,92 @@
+[debug] [2025-09-08T07:54:32.533Z] ----------------------------------------------------------------------
+[debug] [2025-09-08T07:54:32.537Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login
+[debug] [2025-09-08T07:54:32.537Z] CLI Version:   14.15.2
+[debug] [2025-09-08T07:54:32.538Z] Platform:      win32
+[debug] [2025-09-08T07:54:32.538Z] Node Version:  v24.6.0
+[debug] [2025-09-08T07:54:32.538Z] Time:          Mon Sep 08 2025 08:54:32 GMT+0100 (West Africa Standard Time)
+[debug] [2025-09-08T07:54:32.538Z] ----------------------------------------------------------------------
+[debug] 
+[info] Already logged in as emzyafolabi@gmail.com
+[debug] [2025-09-08T07:54:42.597Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:273:49)
+    at listOnTimeout (node:internal/timers:608:17)
+    at process.processTimers (node:internal/timers:543:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-09-08T07:56:03.230Z] ----------------------------------------------------------------------
+[debug] [2025-09-08T07:56:03.238Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2025-09-08T07:56:03.238Z] CLI Version:   14.15.2
+[debug] [2025-09-08T07:56:03.239Z] Platform:      win32
+[debug] [2025-09-08T07:56:03.239Z] Node Version:  v24.6.0
+[debug] [2025-09-08T07:56:03.239Z] Time:          Mon Sep 08 2025 08:56:03 GMT+0100 (West Africa Standard Time)
+[debug] [2025-09-08T07:56:03.240Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-08T07:56:03.251Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-08T07:56:03.252Z] > authorizing via signed-in user (emzyafolabi@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\hp\Documents\UniFlow\UNIFLOW_FRONTEND
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-09-08T07:57:24.048Z] Checked if tokens are valid: false, expires at: 1757272281179
+[debug] [2025-09-08T07:57:24.049Z] Checked if tokens are valid: false, expires at: 1757272281179
+[debug] [2025-09-08T07:57:24.050Z] > refreshing access token with scopes: []
+[debug] [2025-09-08T07:57:24.054Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-09-08T07:57:24.054Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-08T07:57:45.072Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-09-08T07:57:45.072Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-08T07:57:45.083Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
+[debug] [2025-09-08T07:57:45.084Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"uniflow"}
+[debug] [2025-09-08T07:57:53.207Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 200
+[debug] [2025-09-08T07:57:53.207Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"projectIdStatus":"PROJECT_ID_UNAVAILABLE","suggestedProjectId":"uniflow-aa67a"}
+[debug] [2025-09-08T07:59:00.674Z] Checked if tokens are valid: true, expires at: 1757321864072
+[debug] [2025-09-08T07:59:00.674Z] Checked if tokens are valid: true, expires at: 1757321864072
+[debug] [2025-09-08T07:59:00.676Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
+[debug] [2025-09-08T07:59:00.676Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"uniflow-aa101"}
+[debug] [2025-09-08T07:59:15.689Z] *** [apiv2] error from fetch(https://firebase.googleapis.com/v1/projects:checkProjectId, {"headers":{},"method":"POST","signal":{},"body":"{\"proposedId\":\"uniflow-aa101\"}"}): AbortError: The user aborted a request.
+[debug] [2025-09-08T07:59:15.689Z] Couldn't check if project ID uniflow-aa101 is available. Original error: FirebaseError: Failed to check if project ID is available. See firebase-debug.log for more info.
+[debug] [2025-09-08T07:59:25.593Z] Checked if tokens are valid: true, expires at: 1757321864072
+[debug] [2025-09-08T07:59:25.593Z] Checked if tokens are valid: true, expires at: 1757321864072
+[debug] [2025-09-08T07:59:25.595Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-09-08T07:59:25.595Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"uniflow-aa101","name":"uniflow-aa101"}
+[debug] [2025-09-08T07:59:40.599Z] *** [apiv2] error from fetch(https://cloudresourcemanager.googleapis.com/v1/projects, {"headers":{},"method":"POST","signal":{},"body":"{\"projectId\":\"uniflow-aa101\",\"name\":\"uniflow-aa101\"}"}): AbortError: The user aborted a request.
+[debug] [2025-09-08T07:59:45.626Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:273:49)
+    at listOnTimeout (node:internal/timers:608:17)
+    at process.processTimers (node:internal/timers:543:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-09-08T08:07:43.800Z] ----------------------------------------------------------------------
+[debug] [2025-09-08T08:07:43.804Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js projects:list
+[debug] [2025-09-08T08:07:43.805Z] CLI Version:   14.15.2
+[debug] [2025-09-08T08:07:43.805Z] Platform:      win32
+[debug] [2025-09-08T08:07:43.805Z] Node Version:  v24.6.0
+[debug] [2025-09-08T08:07:43.805Z] Time:          Mon Sep 08 2025 09:07:43 GMT+0100 (West Africa Standard Time)
+[debug] [2025-09-08T08:07:43.805Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-08T08:07:43.815Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-08T08:07:43.815Z] > authorizing via signed-in user (emzyafolabi@gmail.com)
+[debug] [2025-09-08T08:07:43.821Z] Checked if tokens are valid: true, expires at: 1757321864072
+[debug] [2025-09-08T08:07:43.821Z] Checked if tokens are valid: true, expires at: 1757321864072
+[debug] [2025-09-08T08:07:43.822Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2025-09-08T08:08:13.826Z] *** [apiv2] error from fetch(https://firebase.googleapis.com/v1beta1/projects?pageSize=1000, {"headers":{},"method":"GET","signal":{}}): AbortError: The user aborted a request.
+[debug] [2025-09-08T08:08:13.827Z] Timeout reached making request to https://firebase.googleapis.com/v1beta1/projects?pageSize=1000
+[debug] [2025-09-08T08:08:15.136Z] FirebaseError: Timeout reached making request to https://firebase.googleapis.com/v1beta1/projects?pageSize=1000
+    at RetryOperation._fn (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:257:35)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to list Firebase projects. See firebase-debug.log for more info.

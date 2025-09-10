@@ -89,11 +89,9 @@ The application will be available at `http://localhost:5173`
 - **React Router** - Client-side routing
 - **CSS Modules** - Component styling
 
-## Backend Integration
+## Data Storage
 
-The frontend connects to the UniFlow backend API for:
-- User authentication
+The app uses local storage for:
+- User authentication (mock authentication)
 - Data persistence
-- Real-time updates
-
-Make sure the backend is running on `http://localhost:3000` before using the frontend.
+- User preferences
